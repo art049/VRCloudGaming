@@ -1,6 +1,5 @@
 package paf.pafvr;
 
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
@@ -11,23 +10,17 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 
-import com.google.vr.ndk.base.GvrApi;
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
 import com.google.vr.sdk.base.GvrView;
 import com.google.vr.sdk.base.HeadTransform;
 import com.google.vr.sdk.base.Viewport;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by Aloïs on 16/06/2016.
@@ -38,18 +31,23 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     private float[] mSTMatrix = new float[16];
 
     private int mProgram;
-    private int mTextureID;
+    private int mTextureIDLeft;
+    private int mTextureIDRight;
     private int muMVPMatrixHandle;
     private int muSTMatrixHandle;
     private int maPositionHandle;
     private int maTextureHandle;
 
-    private SurfaceTexture mSurface;
-    private boolean updateSurface = false;
+    private SurfaceTexture mSurfaceLeft;
+    private SurfaceTexture mSurfaceRight;
+
+    private boolean updateSurfaceLeft = false;
+    private boolean updateSurfaceRight = false;
 
     private static int GL_TEXTURE_EXTERNAL_OES = 0x8D65;
 
-    private MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayerLeft;
+    private MediaPlayer mMediaPlayerRight;
 
     Point size;
 
@@ -119,22 +117,44 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     @Override
     public void onDrawEye(Eye eye) {
 
-        synchronized(this) {
-            if (updateSurface) {
-                mSurface.updateTexImage();
-                mSurface.getTransformMatrix(mSTMatrix);
-                updateSurface = false;
-            }
+        switch(eye.getType()){
+            case(Eye.Type.LEFT):
+                synchronized (this) {
+                    if (updateSurfaceLeft) {
+                        mSurfaceLeft.updateTexImage();
+                        mSurfaceLeft.getTransformMatrix(mSTMatrix);
+                        updateSurfaceLeft = false;
+                    }
+                }
+                break;
+            case(Eye.Type.RIGHT):
+                synchronized (this) {
+                    if (updateSurfaceRight) {
+                        mSurfaceRight.updateTexImage();
+                        mSurfaceRight.getTransformMatrix(mSTMatrix);
+                        updateSurfaceRight = false;
+                    }
+                }
+                break;
         }
 
         GLES20.glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-        GLES20.glClear( GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
         GLES20.glUseProgram(mProgram);
         checkGlError("glUseProgram");
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureID);
+        switch(eye.getType()){
+            case(Eye.Type.LEFT): {
+                GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDLeft);
+                break;
+            }
+            case(Eye.Type.RIGHT): {
+                GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDRight);
+                break;
+            }
+        }
 
         mTriangleVertices.position(TRIANGLE_VERTICES_DATA_POS_OFFSET);
         GLES20.glVertexAttribPointer(maPositionHandle, 3, GLES20.GL_FLOAT, false,
@@ -198,11 +218,13 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
             throw new RuntimeException("Could not get attrib location for uSTMatrix");
         }
 
-        int[] textures = new int[1];
-        GLES20.glGenTextures(1, textures, 0);
+        int[] textures = new int[2];
+        GLES20.glGenTextures(2, textures, 0);
 
-        mTextureID = textures[0];
-        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureID);
+        mTextureIDLeft = textures[0];
+        mTextureIDRight = textures[1];
+
+        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDRight);
         checkGlError("glBindTexture mTextureID");
 
         GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MIN_FILTER,
@@ -214,27 +236,37 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
              * Create the SurfaceTexture that will feed this textureID,
              * and pass it to the MediaPlayer
              */
-        mSurface = new SurfaceTexture(mTextureID);
-        mSurface.setDefaultBufferSize(size.x,size.y);
-        mSurface.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
+        mSurfaceLeft = new SurfaceTexture(mTextureIDLeft);
+        mSurfaceLeft.setDefaultBufferSize(size.x, size.y);
+        mSurfaceLeft.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
 
-        Surface surface = new Surface(mSurface);
-        mMediaPlayer = MediaPlayer.create(this, R.raw.cat);
-        mMediaPlayer.setSurface(surface);
-        surface.release();
 
-        /*try {
-            mMediaPlayer.prepare();
-        } catch (IOException t) {
-            Log.e(TAG, "media player prepare failed");
-        }*/
+        Surface surfaceLeft = new Surface(mSurfaceLeft);
+        mMediaPlayerLeft = MediaPlayer.create(this, R.raw.cat);
+        mMediaPlayerLeft.setSurface(surfaceLeft);
+        surfaceLeft.release();
+
+        mSurfaceRight = new SurfaceTexture(mTextureIDRight);
+        mSurfaceRight.setDefaultBufferSize(size.x, size.y);
+        mSurfaceRight.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
+
+        Surface surfaceRight = new Surface(mSurfaceRight);
+        mMediaPlayerRight = MediaPlayer.create(this, R.raw.dog);
+        mMediaPlayerRight.setSurface(surfaceRight);
+        surfaceRight.release();
 
         synchronized(this) {
-            updateSurface = false;
+            updateSurfaceLeft = false;
         }
 
+        synchronized(this) {
+            updateSurfaceRight = false;
+        }
 
-        mMediaPlayer.start();
+        mMediaPlayerRight.setLooping(true);
+        mMediaPlayerLeft.setLooping(true);
+        mMediaPlayerLeft.start();
+        mMediaPlayerRight.start();
     }
 
     @Override
@@ -243,7 +275,8 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     }
 
     synchronized public void onFrameAvailable(SurfaceTexture surface) {
-        updateSurface = true;
+        updateSurfaceLeft = true;
+        updateSurfaceRight = true;
     }
 
     private int loadShader(int shaderType, String source) {
