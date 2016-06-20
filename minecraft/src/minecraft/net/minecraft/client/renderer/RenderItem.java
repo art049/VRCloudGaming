@@ -186,7 +186,10 @@ public class RenderItem implements IResourceManagerReloadListener {
          if(flag && bakedquad.hasTintIndex()) {
             k = this.itemColors.getColorFromItemstack(stack, bakedquad.getTintIndex());
             if(EntityRenderer.anaglyphEnable) {
-               k = TextureUtil.anaglyphColor(k);
+            	// BEGIN VRCG
+            	//k = TextureUtil.anaglyphColor(k);
+            	;
+            	// END VRCG
             }
 
             k = k | -16777216;

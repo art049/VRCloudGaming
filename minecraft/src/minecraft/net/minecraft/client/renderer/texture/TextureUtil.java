@@ -235,7 +235,10 @@ public class TextureUtil {
    private static void copyToBufferPos(int[] p_110994_0_, int p_110994_1_, int p_110994_2_) {
       int[] aint = p_110994_0_;
       if(Minecraft.getMinecraft().gameSettings.anaglyph) {
-         aint = updateAnaglyph(p_110994_0_);
+    	// BEGIN VRCG
+         //aint = updateAnaglyph(p_110994_0_);
+    	  ;
+    	 // END VRCG
       }
 
       DATA_BUFFER.clear();

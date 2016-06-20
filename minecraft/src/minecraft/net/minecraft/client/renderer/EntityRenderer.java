@@ -194,7 +194,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
    private void loadShader(ResourceLocation resourceLocationIn) {
       try {
          this.theShaderGroup = new ShaderGroup(this.mc.getTextureManager(), this.resourceManager, this.mc.getFramebuffer(), resourceLocationIn);
-         this.theShaderGroup.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
+         // BEGIN VRCG
+         if (mc.getMinecraft().gameSettings.anaglyph)
+        	 this.theShaderGroup.createBindFramebuffers(this.mc.displayWidth/2, this.mc.displayHeight);
+         else
+        	 this.theShaderGroup.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
+
+         // END VRCG // TODO : See what it does
          this.useShader = true;
       } catch (IOException ioexception) {
          LOGGER.warn((String)("Failed to load shader: " + resourceLocationIn), (Throwable)ioexception);
@@ -537,7 +543,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
       }
 
-      Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+   // BEGIN VRCG
+      if (pass == 2)
+    	  Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+      else
+    	  Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight / 2, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+      // END VRCG
       GlStateManager.matrixMode(5888);
       GlStateManager.loadIdentity();
       if(this.mc.gameSettings.anaglyph) {
@@ -592,8 +603,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          if(this.mc.gameSettings.anaglyph) {
             GlStateManager.translate((float)(-(pass * 2 - 1)) * f, 0.0F, 0.0F);
          }
-
-         Project.gluPerspective(this.getFOVModifier(partialTicks, false), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+      // BEGIN VRCG
+         if (pass == 2)
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, false), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+         else	 
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, false), (float)this.mc.displayWidth / (float)this.mc.displayHeight / 2, 0.05F, this.farPlaneDistance * 2.0F);
+         // END VRCG
          GlStateManager.matrixMode(5888);
          GlStateManager.loadIdentity();
          if(this.mc.gameSettings.anaglyph) {
@@ -970,12 +985,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       this.mc.mcProfiler.startSection("center");
       if(this.mc.gameSettings.anaglyph) {
          anaglyphField = 0;
-         GlStateManager.colorMask(false, true, true, false);
+      // BEGIN VRCG
+         int[] values = new int[4];
+         
+         GlStateManager.colorMask(true, true, true, true);
          this.renderWorldPass(0, partialTicks, finishTimeNano);
          anaglyphField = 1;
-         GlStateManager.colorMask(true, false, false, false);
+         //System.out.println(" fin pass 0 "+GlStateManager.colorMaskState.alpha);
+         GlStateManager.colorMask(false, false, false, false);//TODO :Pourquoi, je sais pas
          this.renderWorldPass(1, partialTicks, finishTimeNano);
-         GlStateManager.colorMask(true, true, true, false);
+       //  System.out.println(" fin pass 1 " + GlStateManager.colorMaskState.alpha);
+         GlStateManager.colorMask(true, true, true, true);
+         //END VRCG
       } else {
          this.renderWorldPass(2, partialTicks, finishTimeNano);
       }
@@ -986,10 +1007,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
    private void renderWorldPass(int pass, float partialTicks, long finishTimeNano) {
       RenderGlobal renderglobal = this.mc.renderGlobal;
       ParticleManager particlemanager = this.mc.effectRenderer;
+
       boolean flag = this.isDrawBlockOutline();
       GlStateManager.enableCull();
       this.mc.mcProfiler.endStartSection("clear");
-      GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+      
+   // BEGIN VRCG
+      if (pass == 2)
+    	  GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+      else
+    	  GlStateManager.viewport((1-pass)*this.mc.displayWidth/2, 0, this.mc.displayWidth/2, this.mc.displayHeight);
+   // END VRCG
+      
       this.updateFogColor(partialTicks);
       GlStateManager.clear(16640);
       this.mc.mcProfiler.endStartSection("camera");
@@ -1009,14 +1038,27 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          this.mc.mcProfiler.endStartSection("sky");
          GlStateManager.matrixMode(5889);
          GlStateManager.loadIdentity();
-         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+      // BEGIN VRCG
+         if (pass == 2)
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
+         else
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight/2, 0.05F, this.farPlaneDistance * 2.0F);
+      // END VRCG
          GlStateManager.matrixMode(5888);
+         GlStateManager.colorMask(true, true, true, true);
+
          renderglobal.renderSky(partialTicks, pass);
          GlStateManager.matrixMode(5889);
          GlStateManager.loadIdentity();
-         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+      // BEGIN VRCG
+         if (pass == 2)
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+         else
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight/2, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+       //END VRCG
          GlStateManager.matrixMode(5888);
       }
+      GlStateManager.colorMask(true, true, true, true);
 
       this.setupFog(0, partialTicks);
       GlStateManager.shadeModel(7425);
@@ -1030,7 +1072,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       RenderHelper.disableStandardItemLighting();
       this.mc.mcProfiler.endStartSection("terrain_setup");
       renderglobal.setupTerrain(entity, (double)partialTicks, icamera, this.frameCount++, this.mc.thePlayer.isSpectator());
-      if(pass == 0 || pass == 2) {
+
+      if(pass // BEGIN VRCG== 0 
+    		  >=0
+    		
+    		  //TODO : Understand it
+    		// END VRCG
+    		  || pass == 2
+    		  ) {
          this.mc.mcProfiler.endStartSection("updatechunks");
          this.mc.renderGlobal.updateChunks(finishTimeNano);
       }
@@ -1125,7 +1174,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          this.mc.mcProfiler.endStartSection("clouds");
          GlStateManager.matrixMode(5889);
          GlStateManager.loadIdentity();
-         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 4.0F);
+      // BEGIN VRCG
+         if (pass == 2)
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 4.0F);
+         else
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight/2, 0.05F, this.farPlaneDistance * 4.0F);
+      // END VRCG
          GlStateManager.matrixMode(5888);
          GlStateManager.pushMatrix();
          this.setupFog(0, partialTicks);
@@ -1134,7 +1188,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          GlStateManager.popMatrix();
          GlStateManager.matrixMode(5889);
          GlStateManager.loadIdentity();
-         Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+      // BEGIN VRCG
+         if (pass == 2)
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+         else
+        	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight/2, 0.05F, this.farPlaneDistance * MathHelper.SQRT_2);
+      // END VRCG
          GlStateManager.matrixMode(5888);
       }
    }
@@ -1460,12 +1519,16 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       }
 
       if(this.mc.gameSettings.anaglyph) {
-         float f16 = (this.fogColorRed * 30.0F + this.fogColorGreen * 59.0F + this.fogColorBlue * 11.0F) / 100.0F;
-         float f17 = (this.fogColorRed * 30.0F + this.fogColorGreen * 70.0F) / 100.0F;
-         float f7 = (this.fogColorRed * 30.0F + this.fogColorBlue * 70.0F) / 100.0F;
-         this.fogColorRed = f16;
-         this.fogColorGreen = f17;
-         this.fogColorBlue = f7;
+    	// BEGIN VRCG
+         //float f16 = (this.fogColorRed * 30.0F + this.fogColorGreen * 59.0F + this.fogColorBlue * 11.0F) / 100.0F;
+         //float f17 = (this.fogColorRed * 30.0F + this.fogColorGreen * 70.0F) / 100.0F;
+         //float f7 = (this.fogColorRed * 30.0F + this.fogColorBlue * 70.0F) / 100.0F;
+         //this.fogColorRed = f16;
+         //this.fogColorGreen = f17;
+       //  this.fogColorBlue = f7;
+    	  ;
+    	  // END VRCG
+    	  
       }
 
       GlStateManager.clearColor(this.fogColorRed, this.fogColorGreen, this.fogColorBlue, 0.0F);

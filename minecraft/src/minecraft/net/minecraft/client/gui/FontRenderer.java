@@ -64,12 +64,16 @@ public class FontRenderer implements IResourceManagerReloadListener {
          }
 
          if(gameSettingsIn.anaglyph) {
+        	// BEGIN VRCG
+        	 /*
             int j1 = (k * 30 + l * 59 + i1 * 11) / 100;
             int k1 = (k * 30 + l * 70) / 100;
             int l1 = (k * 30 + i1 * 70) / 100;
             k = j1;
             l = k1;
-            i1 = l1;
+            i1 = l1;*/
+        	 ;
+        	// END VRCG
          }
 
          if(i >= 16) {

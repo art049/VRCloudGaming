@@ -195,7 +195,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
          try {
             this.entityOutlineShader = new ShaderGroup(this.mc.getTextureManager(), this.mc.getResourceManager(), this.mc.getFramebuffer(), resourcelocation);
-            this.entityOutlineShader.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
+         // BEGIN VRCG
+            if (!mc.getMinecraft().gameSettings.anaglyph)
+            	this.entityOutlineShader.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
+            else
+            	this.entityOutlineShader.createBindFramebuffers(this.mc.displayWidth/2, this.mc.displayHeight);
+         // END VRCG
             this.entityOutlineFramebuffer = this.entityOutlineShader.getFramebufferRaw("final");
          } catch (IOException ioexception) {
             LOGGER.warn((String)("Failed to load shader: " + resourcelocation), (Throwable)ioexception);
@@ -216,7 +221,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
       if(this.isRenderEntityOutlines()) {
          GlStateManager.enableBlend();
          GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ZERO, GlStateManager.DestFactor.ONE);
-         this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth, this.mc.displayHeight, false);
+      // BEGIN VRCG
+         if (!mc.getMinecraft().gameSettings.anaglyph)
+        	 this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth, this.mc.displayHeight, false);
+        else
+        	 this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth/2, this.mc.displayHeight, false);
+      // END VRCG  
          GlStateManager.disableBlend();
       }
    }
@@ -845,7 +855,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
    }
 
    public int renderBlockLayer(BlockRenderLayer blockLayerIn, double partialTicks, int pass, Entity entityIn) {
-      RenderHelper.disableStandardItemLighting();
+      
+	   RenderHelper.disableStandardItemLighting();
       if(blockLayerIn == BlockRenderLayer.TRANSLUCENT) {
          this.mc.mcProfiler.startSection("translucent_sort");
          double d0 = entityIn.posX - this.prevRenderSortX;
@@ -1011,7 +1022,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
          float f = (float)vec3d.xCoord;
          float f1 = (float)vec3d.yCoord;
          float f2 = (float)vec3d.zCoord;
-         if(pass != 2) {
+         if(// BEGIN VRCG pass != 2
+        		 false
+        		 // END VRCG
+        		 ) {
             float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
             float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
             float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
@@ -1053,7 +1067,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
             float f6 = afloat[0];
             float f7 = afloat[1];
             float f8 = afloat[2];
-            if(pass != 2) {
+            if( // BEGIN VRCG pass != 2
+            		false
+            		// END VRCG
+            		) {
                float f9 = (f6 * 30.0F + f7 * 59.0F + f8 * 11.0F) / 100.0F;
                float f10 = (f6 * 30.0F + f7 * 70.0F) / 100.0F;
                float f11 = (f6 * 30.0F + f8 * 70.0F) / 100.0F;
@@ -1208,7 +1225,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
             float f1 = (float)vec3d.xCoord;
             float f2 = (float)vec3d.yCoord;
             float f3 = (float)vec3d.zCoord;
-            if(pass != 2) {
+            if(// BEGIN VRCG pass != 2
+            		false
+            	// END VRCG	
+            		) {
                float f4 = (f1 * 30.0F + f2 * 59.0F + f3 * 11.0F) / 100.0F;
                float f5 = (f1 * 30.0F + f2 * 70.0F) / 100.0F;
                float f6 = (f1 * 30.0F + f3 * 70.0F) / 100.0F;
@@ -1274,7 +1294,10 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
       float f4 = (float)vec3d.xCoord;
       float f5 = (float)vec3d.yCoord;
       float f6 = (float)vec3d.zCoord;
-      if(pass != 2) {
+      if(// BEGIN VRCG pass != 2
+    		  false
+    		  // END VRCG
+    		  ) {
          float f7 = (f4 * 30.0F + f5 * 59.0F + f6 * 11.0F) / 100.0F;
          float f8 = (f4 * 30.0F + f5 * 70.0F) / 100.0F;
          float f9 = (f4 * 30.0F + f6 * 70.0F) / 100.0F;
@@ -1307,14 +1330,19 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
             GlStateManager.colorMask(false, false, false, false);
          } else {
             switch(pass) {
-            case 0:
+         // BEGIN VRCG 
+            /*case 0:
                GlStateManager.colorMask(false, true, true, true);
                break;
             case 1:
                GlStateManager.colorMask(true, false, false, true);
-               break;
+               break;*/
             case 2:
                GlStateManager.colorMask(true, true, true, true);
+               break;
+             default :
+            	 GlStateManager.colorMask(true, true, true, true);
+            // END VRCG
             }
          }
 
