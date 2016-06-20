@@ -130,7 +130,7 @@ public class GuiIngame extends Gui {
          this.renderHotbar(scaledresolution, partialTicks);
       }
 
-      GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+      GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);// the cross to aim a box.
       this.mc.getTextureManager().bindTexture(ICONS);
       GlStateManager.enableBlend();
       this.renderAttackIndicator(partialTicks, scaledresolution);
