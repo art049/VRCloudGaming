@@ -1,4 +1,7 @@
 package net.minecraft.client.gui;
+/**
+ * modified by : VRCG
+ */
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -11,6 +14,7 @@ import javax.annotation.Nullable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -98,12 +102,21 @@ public class GuiIngame extends Gui {
       this.titleFadeOut = 20;
    }
 
-   public void renderGameOverlay(float partialTicks) {
+   public void renderGameOverlay(float partialTicks,int pass) {
       ScaledResolution scaledresolution = new ScaledResolution(this.mc);
       int i = scaledresolution.getScaledWidth();
       int j = scaledresolution.getScaledHeight();
       FontRenderer fontrenderer = this.getFontRenderer();
+      //Begin VRCG
+      
+      
+ 	 this.splitInventory(pass);
+ 	 
+ 	
+   //End VRCG
       this.mc.entityRenderer.setupOverlayRendering();
+
+   
       GlStateManager.enableBlend();
       if(Minecraft.isFancyGraphicsEnabled()) {
          this.renderVignette(this.mc.thePlayer.getBrightness(partialTicks), scaledresolution);
@@ -116,6 +129,7 @@ public class GuiIngame extends Gui {
       if(this.mc.gameSettings.thirdPersonView == 0 && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
          this.renderPumpkinOverlay(scaledresolution);
       }
+      
 
       if(!this.mc.thePlayer.isPotionActive(MobEffects.NAUSEA)) {
          float f = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * partialTicks;
@@ -130,11 +144,14 @@ public class GuiIngame extends Gui {
          this.renderHotbar(scaledresolution, partialTicks);
       }
 
+
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+      
       this.mc.getTextureManager().bindTexture(ICONS);
       GlStateManager.enableBlend();
       this.renderAttackIndicator(partialTicks, scaledresolution);
       GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+      
       this.mc.mcProfiler.startSection("bossHealth");
       this.overlayBoss.renderBossHealth();
       this.mc.mcProfiler.endSection();
@@ -1021,4 +1038,17 @@ public class GuiIngame extends Gui {
    public GuiBossOverlay getBossOverlay() {
       return this.overlayBoss;
    }
+   //Begin VRCG
+   public void splitInventory(int pass)
+   {
+	   /**
+	    * this function allows to make 2 views of the inventory
+	    */
+	   if (pass == 2)
+	        GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
+	    else
+	    	GlStateManager.viewport((1-pass)*this.mc.displayWidth/2, 0, this.mc.displayWidth/2, this.mc.displayHeight);
+	      
+   }
+   //End VRGC
 }

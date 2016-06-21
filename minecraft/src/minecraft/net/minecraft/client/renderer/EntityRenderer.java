@@ -876,7 +876,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.mc.mcProfiler.endStartSection("gui");
             if(!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
                GlStateManager.alphaFunc(516, 0.1F);
-               this.mc.ingameGUI.renderGameOverlay(partialTicks);
+               //Begin VRCG
+               if(this.mc.gameSettings.anaglyph){
+            	   this.mc.ingameGUI.renderGameOverlay(partialTicks,1);
+            	   this.mc.ingameGUI.renderGameOverlay(partialTicks,0);
+            	   
+            
+               }
+               else
+            	   this.mc.ingameGUI.renderGameOverlay(partialTicks,2);
+            	   
+            	//End VRCG   
             }
 
             this.mc.mcProfiler.endSection();
@@ -1039,10 +1049,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          GlStateManager.matrixMode(5889);
          GlStateManager.loadIdentity();
       // BEGIN VRCG
+         
          if (pass == 2)
         	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight, 0.05F, this.farPlaneDistance * 2.0F);
          else
         	 Project.gluPerspective(this.getFOVModifier(partialTicks, true), (float)this.mc.displayWidth / (float)this.mc.displayHeight/2, 0.05F, this.farPlaneDistance * 2.0F);
+      
       // END VRCG
          GlStateManager.matrixMode(5888);
          GlStateManager.colorMask(true, true, true, true);
