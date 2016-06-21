@@ -33,6 +33,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     private int mProgram;
     private int mTextureIDLeft;
     private int mTextureIDRight;
+    private int mTextureIDBoth;
     private int muMVPMatrixHandle;
     private int muSTMatrixHandle;
     private int maPositionHandle;
@@ -40,14 +41,17 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
 
     private SurfaceTexture mSurfaceLeft;
     private SurfaceTexture mSurfaceRight;
+    private SurfaceTexture mSurfaceBoth;
 
     private boolean updateSurfaceLeft = false;
     private boolean updateSurfaceRight = false;
+    private boolean updateSurfaceBoth=false;
 
     private static int GL_TEXTURE_EXTERNAL_OES = 0x8D65;
 
     private MediaPlayer mMediaPlayerLeft;
     private MediaPlayer mMediaPlayerRight;
+    private MediaPlayer mMediaPlayerBoth;
 
     Point size;
 
@@ -112,11 +116,17 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     @Override
     public void onNewFrame(HeadTransform headTransform){
 
+        float[] angles = new float[3];
+        headTransform.getEulerAngles(angles,0);
+        String messageStr = "angle 1:" + angles[0] + " angle 2:" + angles[1] + " angle 3:" + angles[2];
+        new GyroTask().execute(messageStr);
+        Log.d("tag", "lol");
     }
 
     @Override
     public void onDrawEye(Eye eye) {
 
+        /* Pour deux images
         switch(eye.getType()){
             case(Eye.Type.LEFT):
                 synchronized (this) {
@@ -136,6 +146,30 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
                     }
                 }
                 break;
+        }*/
+
+        /* Pour une seule image coupée en deux*/
+        synchronized(this) {
+            mSurfaceBoth.updateTexImage();
+            mSurfaceBoth.getTransformMatrix(mSTMatrix);
+            switch(eye.getType()){
+                case(Eye.Type.LEFT):
+                    for(int i=0; i<4; i++){
+                        mSTMatrix[i]=mSTMatrix[i]/2;
+                    }
+                    updateSurfaceBoth = false;
+                    break;
+                case(Eye.Type.RIGHT):
+                    for(int i=0; i<4; i++){
+                        mSTMatrix[i]=mSTMatrix[i]/2;
+                    }
+                    for(int i=12; i<16; i++){
+                        mSTMatrix[i]=mSTMatrix[i]+mSTMatrix[i-12];
+                    }
+                    updateSurfaceBoth = false;
+                    break;
+            }
+
         }
 
         GLES20.glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
@@ -145,6 +179,8 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         checkGlError("glUseProgram");
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+
+        /* Pour deux images
         switch(eye.getType()){
             case(Eye.Type.LEFT): {
                 GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDLeft);
@@ -154,7 +190,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
                 GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDRight);
                 break;
             }
-        }
+        }*/
 
         mTriangleVertices.position(TRIANGLE_VERTICES_DATA_POS_OFFSET);
         GLES20.glVertexAttribPointer(maPositionHandle, 3, GLES20.GL_FLOAT, false,
@@ -218,13 +254,14 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
             throw new RuntimeException("Could not get attrib location for uSTMatrix");
         }
 
-        int[] textures = new int[2];
-        GLES20.glGenTextures(2, textures, 0);
+        int[] textures = new int[3];
+        GLES20.glGenTextures(3, textures, 0);
 
         mTextureIDLeft = textures[0];
         mTextureIDRight = textures[1];
+        mTextureIDBoth = textures[2];
 
-        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDRight);
+        GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDBoth);
         checkGlError("glBindTexture mTextureID");
 
         GLES20.glTexParameterf(GL_TEXTURE_EXTERNAL_OES, GLES20.GL_TEXTURE_MIN_FILTER,
@@ -236,6 +273,8 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
              * Create the SurfaceTexture that will feed this textureID,
              * and pass it to the MediaPlayer
              */
+
+        /* Pour deux images
         mSurfaceLeft = new SurfaceTexture(mTextureIDLeft);
         mSurfaceLeft.setDefaultBufferSize(size.x, size.y);
         mSurfaceLeft.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
@@ -267,6 +306,23 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         mMediaPlayerLeft.setLooping(true);
         mMediaPlayerLeft.start();
         mMediaPlayerRight.start();
+        */
+
+        /*Pour une seule image*/
+        mSurfaceBoth = new SurfaceTexture(mTextureIDBoth);
+        mSurfaceBoth.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
+
+        Surface surfaceBoth = new Surface(mSurfaceBoth);
+        mMediaPlayerBoth = MediaPlayer.create(this, R.raw.dog);
+        mMediaPlayerBoth.setSurface(surfaceBoth);
+        surfaceBoth.release();
+
+        synchronized(this) {
+            updateSurfaceBoth = false;
+        }
+
+        mMediaPlayerBoth.setLooping(true);
+        mMediaPlayerBoth.start();
     }
 
     @Override
@@ -277,6 +333,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     synchronized public void onFrameAvailable(SurfaceTexture surface) {
         updateSurfaceLeft = true;
         updateSurfaceRight = true;
+        updateSurfaceBoth=true;
     }
 
     private int loadShader(int shaderType, String source) {

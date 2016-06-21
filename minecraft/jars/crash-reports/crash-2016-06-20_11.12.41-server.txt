@@ -1,0 +1,41 @@
+---- Minecraft Crash Report ----
+// I'm sorry, Dave.
+
+Time: 20/06/16 11:12
+Description: Exception in server tick loop
+
+java.lang.Error: Unresolved compilation problems: 
+	Duplicate methods named spliterator with the parameters () and () are inherited from the types Set<T> and Collection<T>
+	Duplicate methods named spliterator with the parameters () and () are inherited from the types Collection<T> and Iterable<T>
+
+	at net.minecraft.util.ClassInheritanceMultiMap.<init>(ClassInheritanceMultiMap.java:13)
+	at net.minecraft.world.chunk.Chunk.<init>(Chunk.java:83)
+	at net.minecraft.world.chunk.storage.AnvilChunkLoader.readChunkFromNBT(AnvilChunkLoader.java:251)
+	at net.minecraft.world.chunk.storage.AnvilChunkLoader.checkedReadChunkFromNBT(AnvilChunkLoader.java:74)
+	at net.minecraft.world.chunk.storage.AnvilChunkLoader.loadChunk(AnvilChunkLoader.java:61)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunkFromFile(ChunkProviderServer.java:114)
+	at net.minecraft.world.gen.ChunkProviderServer.loadChunk(ChunkProviderServer.java:76)
+	at net.minecraft.world.gen.ChunkProviderServer.provideChunk(ChunkProviderServer.java:88)
+	at net.minecraft.server.MinecraftServer.initialWorldChunkLoad(MinecraftServer.java:275)
+	at net.minecraft.server.integrated.IntegratedServer.loadAllWorlds(IntegratedServer.java:105)
+	at net.minecraft.server.integrated.IntegratedServer.startServer(IntegratedServer.java:117)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:375)
+	at java.lang.Thread.run(Thread.java:745)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9.4
+	Operating System: Linux (amd64) version 4.2.0-16-generic
+	Java Version: 1.8.0_77, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 956356392 bytes (912 MB) / 1038876672 bytes (990 MB) up to 1038876672 bytes (990 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Profiler Position: N/A (disabled)
+	Player Count: 0 / 8; []
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Very likely; Jar signature invalidated
