@@ -2,13 +2,17 @@ package paf.pafvr;
 
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
-import android.media.MediaPlayer;
+import android.media.AudioManager;
+import android.media.MediaCodecList;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
+import android.widget.EditText;
 
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
@@ -16,16 +20,34 @@ import com.google.vr.sdk.base.GvrView;
 import com.google.vr.sdk.base.HeadTransform;
 import com.google.vr.sdk.base.Viewport;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.Scanner;
 
 import javax.microedition.khronos.egl.EGLConfig;
+
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.VideoView;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by Aloïs on 16/06/2016.
  */
-public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener {
+public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener, MediaPlayer.OnPreparedListener, IjkMediaPlayer.OnPreparedListener {
 
     private float[] mMVPMatrix = new float[16];
     private float[] mSTMatrix = new float[16];
@@ -52,6 +74,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     private MediaPlayer mMediaPlayerLeft;
     private MediaPlayer mMediaPlayerRight;
     private MediaPlayer mMediaPlayerBoth;
+    private IjkMediaPlayer mIjkMediaPlayerBoth;
 
     Point size;
 
@@ -91,9 +114,16 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
                     "  gl_FragColor = texture2D(sTexture, vTextureCoord);\n" +
                     "}\n";
 
+    private Socket mSocket;
+    private static final int SERVER_PORT = 5000;
+    private static final String SERVER_IP = "192.168.42.220";
+    boolean listening = true;
+
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+        if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
+            return;
         setContentView(R.layout.vr_layout);
         GvrView gvrView = (GvrView) findViewById(R.id.gvr_view);
         gvrView.setRenderer(this);
@@ -105,22 +135,173 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         Matrix.setIdentityM(mSTMatrix, 0);
         GLES20.glClearColor(1f, 1f, 1f, 1f);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        System.out.println(width+" "+height);
+        //new Thread(new ServerThread()).start();
     }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        Log.d(TAG, "onPrepared called");
+        mp.setBufferSize(0);
+        mp.start();
+    }
+
+    @Override
+    public void onPrepared(IMediaPlayer mp) {
+
+        Log.d(TAG, "onPrepared called");
+        mp.start();
+    }
+
+
+    class ServerThread implements Runnable {
+        private ServerSocket server;
+        private boolean clientConnected = false;
+
+        @Override
+        public void run() {
+            try {
+                server = new ServerSocket(SERVER_PORT);
+                Log.d("Server", "Start the server at port " + SERVER_PORT
+                        + " and waiting for clients...");
+                while (!clientConnected) {
+                    Socket socket = server.accept();
+                    Log.d("Server",
+                            "Accept socket connection: "
+                                    + socket.getLocalAddress());
+                    clientConnected = true;
+                    new Thread(new ClientHandler(socket)).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    class ClientHandler implements Runnable {
+
+        private Socket clientSocket;
+        private PrintWriter out;
+        private Scanner in;
+
+        public ClientHandler(Socket clientSocket) {
+            this.clientSocket = clientSocket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                out = new PrintWriter(clientSocket.getOutputStream());
+                in = new Scanner(clientSocket.getInputStream());
+                String line;
+                Log.d("ClientHandlerThread", "Start communication with : "
+                        + clientSocket.getLocalAddress());
+                out.println("Hello client");
+                out.flush();
+                while ((line = in.nextLine()) != null) {
+                    Log.d("ClientHandlerThread", "Client says: " + line);
+                    if (line.equals("Reply")){
+                        out.print("Server replies");
+                        out.flush();
+                    }
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    /*
+    class Client implements Runnable {
+        private Socket client;
+        private PrintWriter out;
+        private Scanner in;
+
+        @Override
+        public void run() {
+            try {
+                client = new Socket("192.168.42.220", SERVER_PORT);
+                Log.d("Client", "Connected to server at port " + SERVER_PORT);
+                out = new PrintWriter(client.getOutputStream());
+                in = new Scanner(client.getInputStream());
+                String line;
+
+                while ((line = in.nextLine()) != null) {
+                    Log.d("Client", "Server says: " + line);
+                    if (line.equals("Hello client")) {
+                        out.println("Reply");
+                        out.flush();
+                    }
+                }
+
+            } catch (UnknownHostException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }*/
+
+
+    /*class ClientThread implements Runnable {
+
+        boolean connectionStarted = false;
+        byte[] buffer = new byte[32 * 1024];
+        String string = new String();
+
+        @Override
+        public void run() {
+
+            while (!connectionStarted) {
+                try {
+                    InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+                    mSocket = new Socket(serverAddr, SERVERPORT);
+                    connectionStarted = true;
+
+                } catch (UnknownHostException e1) {
+                    //e1.printStackTrace();
+                    Log.e("connection", "connection failed");
+                } catch (IOException e1) {
+                    //e1.printStackTrace();
+                    Log.e("connection", "connection failed");
+                }
+
+            }
+            while (mSocket == null) ;
+            Log.d("serveur", "Socket created");
+
+            try {
+                BufferedInputStream in = new BufferedInputStream(mSocket.getInputStream());
+                while (listening) {
+                    try {
+                        int d = in.read();
+                        if(d==-1) Log.d("connection", "eof");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }*/
 
     @Override
     public void onNewFrame(HeadTransform headTransform){
 
-        float[] angles = new float[3];
+        /*float[] angles = new float[3];
         headTransform.getEulerAngles(angles,0);
         String messageStr = "angle 1:" + angles[0] + " angle 2:" + angles[1] + " angle 3:" + angles[2];
         new GyroTask().execute(messageStr);
-        Log.d("tag", "lol");
+        Log.d("tag", "lol");*/
     }
 
     @Override
@@ -311,18 +492,36 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         /*Pour une seule image*/
         mSurfaceBoth = new SurfaceTexture(mTextureIDBoth);
         mSurfaceBoth.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
-
         Surface surfaceBoth = new Surface(mSurfaceBoth);
-        mMediaPlayerBoth = MediaPlayer.create(this, R.raw.dog);
-        mMediaPlayerBoth.setSurface(surfaceBoth);
-        surfaceBoth.release();
+        Uri path = Uri.parse("udp://224.0.0.1:5454?Listen");
+        //String path = "raw/cat.mp4";
 
-        synchronized(this) {
-            updateSurfaceBoth = false;
+        /* Avec le MediaPlayer de Vitamio
+        mMediaPlayerBoth = new MediaPlayer(this);
+        try {
+            mMediaPlayerBoth.setDataSource(this, path);
+            mMediaPlayerBoth.setAdaptiveStream(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mMediaPlayerBoth.setSurface(surfaceBoth);
+        mMediaPlayerBoth.prepareAsync();
+        mMediaPlayerBoth.setOnPreparedListener(this);
+        */
+
+        mIjkMediaPlayerBoth = new IjkMediaPlayer();
+        try {
+            mIjkMediaPlayerBoth.setDataSource(this, path);
+            mIjkMediaPlayerBoth.setSurface(surfaceBoth);
+            mIjkMediaPlayerBoth.prepareAsync();
+            mIjkMediaPlayerBoth.setOnPreparedListener(this);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        mMediaPlayerBoth.setLooping(true);
-        mMediaPlayerBoth.start();
+        synchronized (this) {
+            updateSurfaceBoth = false;
+        }
     }
 
     @Override
@@ -333,7 +532,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     synchronized public void onFrameAvailable(SurfaceTexture surface) {
         updateSurfaceLeft = true;
         updateSurfaceRight = true;
-        updateSurfaceBoth=true;
+        updateSurfaceBoth = true;
     }
 
     private int loadShader(int shaderType, String source) {

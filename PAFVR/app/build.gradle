@@ -5,9 +5,12 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
         applicationId "paf.pafvr"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -24,6 +27,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
+    compile 'com.writingminds:FFmpegAndroid:0.3.2'
+    //compile('com.creativa77:android_streaming_client:1.0.+')
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.5.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.5.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.5.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.5.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.5.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.5.1'
+    compile 'me.neavo:vitamio:4.2.2'
     compile project(':audio')
     compile project(':common')
     compile project(':base')
