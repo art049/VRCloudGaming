@@ -9,8 +9,8 @@ public class UdpReceiver implements Runnable {
 	private String threadName = new String("receive");
 	byte[] buf;
 	private DatagramSocket socket;
-	private int pitchValue;
-	private int yawValue;
+	private float pitchValue;
+	private float yawValue;
 
 
 	public void startThreadReceiver() {
@@ -21,7 +21,7 @@ public class UdpReceiver implements Runnable {
 	}
 
 	public UdpReceiver() {
-		buf = new byte[5];
+		buf = new byte[11];
 		try {
 			socket = new DatagramSocket(8345);
 		} catch (SocketException e) {
@@ -36,10 +36,14 @@ public class UdpReceiver implements Runnable {
 			try {
 				DatagramPacket packet = new DatagramPacket(buf, buf.length);
 				socket.receive(packet);
+				String str = new String(buf, "utf-8");
+				String[] splitStr = str.split(" ");
+				String yawStr = splitStr[0];
+				String pitchStr = splitStr[1];
 				
 				synchronized(this){
-					pitchValue = buf[0];
-					yawValue = buf[1];
+					pitchValue = Float.parseFloat(pitchStr);
+					yawValue = Float.parseFloat(yawStr);
 				}
 
 			} catch (SocketException e) {
@@ -54,10 +58,10 @@ public class UdpReceiver implements Runnable {
 	}
 	
 	public synchronized float getPitch(){
-		return (float) pitchValue; // TODO HANDLE Converting
+		return  pitchValue; // TODO HANDLE Converting
 	}
 	public synchronized float getYaw(){
-		return (float) yawValue;
+		return  yawValue;
 		
 	}
 
