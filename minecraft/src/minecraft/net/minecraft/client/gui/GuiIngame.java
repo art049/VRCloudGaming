@@ -54,6 +54,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.border.WorldBorder;
 
 public class GuiIngame extends Gui {
+	 //Begin VRCG
+    public static final int heightLevel = 100; // to up or down the HotBar
+    //End VRCG
    private static final ResourceLocation VIGNETTE_TEX_PATH = new ResourceLocation("textures/misc/vignette.png");
    private static final ResourceLocation WIDGETS_TEX_PATH = new ResourceLocation("textures/gui/widgets.png");
    private static final ResourceLocation PUMPKIN_BLUR_TEX_PATH = new ResourceLocation("textures/misc/pumpkinblur.png");
@@ -110,11 +113,12 @@ public class GuiIngame extends Gui {
       //Begin VRCG
       
       
- 	 this.splitInventory(pass);
- 	 
+      this.splitInventory(pass);
+      this.mc.entityRenderer.setupOverlayRendering();
+    
  	
    //End VRCG
-      this.mc.entityRenderer.setupOverlayRendering();
+     
 
    
       GlStateManager.enableBlend();
@@ -144,7 +148,7 @@ public class GuiIngame extends Gui {
          this.renderHotbar(scaledresolution, partialTicks);
       }
 
-
+      
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       
       this.mc.getTextureManager().bindTexture(ICONS);
@@ -401,13 +405,14 @@ public class GuiIngame extends Gui {
          int j = 182;
          int k = 91;
          this.zLevel = -90.0F;
-         this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-         this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+        
+         this.drawTexturedModalRect(i -91, sr.getScaledHeight() -heightLevel, 0, 0, 182, 22);
+         this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - heightLevel - 1, 0, 22, 24, 22);
          if(itemstack != null) {
             if(enumhandside == EnumHandSide.LEFT) {
-               this.drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - 23, 24, 22, 29, 24);
+               this.drawTexturedModalRect(i - 91 - 29, sr.getScaledHeight() - heightLevel, 24, 22, 29, 24);
             } else {
-               this.drawTexturedModalRect(i + 91, sr.getScaledHeight() - 23, 53, 22, 29, 24);
+               this.drawTexturedModalRect(i + 91, sr.getScaledHeight() - heightLevel, 53, 22, 29, 24);
             }
          }
 
@@ -419,12 +424,12 @@ public class GuiIngame extends Gui {
 
          for(int l = 0; l < 9; ++l) {
             int i1 = i - 90 + l * 20 + 2;
-            int j1 = sr.getScaledHeight() - 16 - 3;
+            int j1 = sr.getScaledHeight() -heightLevel +3;
             this.renderHotbarItem(i1, j1, partialTicks, entityplayer, entityplayer.inventory.mainInventory[l]);
          }
 
          if(itemstack != null) {
-            int l1 = sr.getScaledHeight() - 16 - 3;
+            int l1 = sr.getScaledHeight() - heightLevel + 3;
             if(enumhandside == EnumHandSide.LEFT) {
                this.renderHotbarItem(i - 91 - 26, l1, partialTicks, entityplayer, itemstack);
             } else {
@@ -435,7 +440,7 @@ public class GuiIngame extends Gui {
          if(this.mc.gameSettings.attackIndicator == 2) {
             float f1 = this.mc.thePlayer.getCooledAttackStrength(0.0F);
             if(f1 < 1.0F) {
-               int i2 = sr.getScaledHeight() - 20;
+               int i2 = sr.getScaledHeight() - heightLevel+2;
                int j2 = i + 91 + 6;
                if(enumhandside == EnumHandSide.RIGHT) {
                   j2 = i - 91 - 22;
@@ -461,7 +466,7 @@ public class GuiIngame extends Gui {
       float f = this.mc.thePlayer.getHorseJumpPower();
       int i = 182;
       int j = (int)(f * (float)(i + 1));
-      int k = scaledRes.getScaledHeight() - 32 + 3;
+      int k = scaledRes.getScaledHeight() - heightLevel - 7;//modified
       this.drawTexturedModalRect(x, k, 0, 84, i, 5);
       if(j > 0) {
          this.drawTexturedModalRect(x, k, 0, 89, j, 5);
@@ -477,7 +482,7 @@ public class GuiIngame extends Gui {
       if(i > 0) {
          int j = 182;
          int k = (int)(this.mc.thePlayer.experience * (float)(j + 1));
-         int l = scaledRes.getScaledHeight() - 32 + 3;
+         int l = scaledRes.getScaledHeight() - heightLevel-7;//modified
          this.drawTexturedModalRect(x, l, 0, 64, j, 5);
          if(k > 0) {
             this.drawTexturedModalRect(x, l, 0, 69, k, 5);
@@ -623,7 +628,7 @@ public class GuiIngame extends Gui {
          IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
          int i1 = scaledRes.getScaledWidth() / 2 - 91;
          int j1 = scaledRes.getScaledWidth() / 2 + 91;
-         int k1 = scaledRes.getScaledHeight() - 39;
+         int k1 = scaledRes.getScaledHeight() - heightLevel-17;
          float f = (float)iattributeinstance.getAttributeValue();
          int l1 = MathHelper.ceiling_float_int(entityplayer.getAbsorptionAmount());
          int i2 = MathHelper.ceiling_float_int((f + (float)l1) / 2.0F / 10.0F);
@@ -1048,7 +1053,7 @@ public class GuiIngame extends Gui {
 	        GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
 	    else
 	    	GlStateManager.viewport((1-pass)*this.mc.displayWidth/2, 0, this.mc.displayWidth/2, this.mc.displayHeight);
-	      
+	      	
    }
    //End VRGC
 }

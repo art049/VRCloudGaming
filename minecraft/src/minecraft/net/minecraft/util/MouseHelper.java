@@ -1,5 +1,7 @@
 package net.minecraft.util;
 
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
@@ -8,7 +10,9 @@ public class MouseHelper {
    public int deltaY;
 
    public void grabMouseCursor() {
+	  
       Mouse.setGrabbed(true);
+      
       this.deltaX = 0;
       this.deltaY = 0;
    }
@@ -21,5 +25,7 @@ public class MouseHelper {
    public void mouseXYChange() {
       this.deltaX = Mouse.getDX();
       this.deltaY = Mouse.getDY();
+     
    }
+  
 }

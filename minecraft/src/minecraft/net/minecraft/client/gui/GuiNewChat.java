@@ -45,7 +45,7 @@ public class GuiNewChat extends Gui {
             float f1 = this.getChatScale();
             int l = MathHelper.ceiling_float_int((float)this.getChatWidth() / f1);
             GlStateManager.pushMatrix();
-            GlStateManager.translate(2.0F, 8.0F, 0.0F);
+            GlStateManager.translate(2.0F, 0.0, 0.0F);
             GlStateManager.scale(f1, f1, 1.0F);
 
             for(int i1 = 0; i1 + this.scrollPos < this.drawnChatLines.size() && i1 < i; ++i1) {
@@ -67,7 +67,7 @@ public class GuiNewChat extends Gui {
                      ++j;
                      if(l1 > 3) {
                         int i2 = 0;
-                        int j2 = -i1 * 9;
+                        int j2 = -i1 * 9-GuiIngame.heightLevel+20;
                         drawRect(i2 - 2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                         String s = chatline.getChatComponent().getFormattedText();
                         GlStateManager.enableBlend();

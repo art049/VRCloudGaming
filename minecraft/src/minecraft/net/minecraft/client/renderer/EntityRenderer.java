@@ -878,8 +878,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                GlStateManager.alphaFunc(516, 0.1F);
                //Begin VRCG
                if(this.mc.gameSettings.anaglyph){
-            	   this.mc.ingameGUI.renderGameOverlay(partialTicks,1);
             	   this.mc.ingameGUI.renderGameOverlay(partialTicks,0);
+            	   this.mc.ingameGUI.renderGameOverlay(partialTicks,1);
             	   
             
                }
@@ -891,12 +891,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             this.mc.mcProfiler.endSection();
          } else {
+        	 
             GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
             GlStateManager.matrixMode(5889);
             GlStateManager.loadIdentity();
             GlStateManager.matrixMode(5888);
             GlStateManager.loadIdentity();
             this.setupOverlayRendering();
+        	 
             this.renderEndNanoTime = System.nanoTime();
          }
 
@@ -1400,10 +1402,23 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       GlStateManager.clear(256);
       GlStateManager.matrixMode(5889);
       GlStateManager.loadIdentity();
-      GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 1000.0D, 3000.0D);
-      GlStateManager.matrixMode(5888);
-      GlStateManager.loadIdentity();
-      GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+      
+      
+         
+          
+
+         
+      
+      
+          GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 1000.0D, 3000.0D);
+
+    	  GlStateManager.matrixMode(5888);
+          GlStateManager.loadIdentity();
+          GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+      
+      
+ 
+    
    }
 
    private void updateFogColor(float partialTicks) {

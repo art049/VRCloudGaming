@@ -33,7 +33,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
    public void initGui() {
       Keyboard.enableRepeatEvents(true);
       this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
-      this.inputField = new GuiTextField(0, this.fontRendererObj, 4, this.height - 12, this.width - 4, 12);
+      this.inputField = new GuiTextField(0, this.fontRendererObj, 4, this.height - GuiIngame.heightLevel-20, this.width - 4, 12);
       this.inputField.setMaxStringLength(100);
       this.inputField.setEnableBackgroundDrawing(false);
       this.inputField.setFocused(true);
@@ -143,7 +143,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
    }
 
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-      drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
+      drawRect(2, this.height - GuiIngame.heightLevel-2-20, this.width - 2, this.height - GuiIngame.heightLevel+10-20, Integer.MIN_VALUE);
       this.inputField.drawTextBox();
       ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
       if(itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
