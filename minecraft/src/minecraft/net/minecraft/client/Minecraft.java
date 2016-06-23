@@ -304,10 +304,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private boolean actionKeyF3;
 	long prevFrameTime = -1L;
 	private String debugProfilerName = "root";
-	
+
 	// BEGIN VRCG
 	public UdpReceiver receiver;
-	
+
 	public Minecraft(GameConfiguration gameConfig) {
 		receiver = new UdpReceiver();
 		receiver.startThreadReceiver();
@@ -938,7 +938,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		this.mcProfiler.endSection();
 		if (!this.skipRenderWorld) {
 			this.mcProfiler.endStartSection("gameRenderer");
-			this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i);
+			this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i, this.gameSettings.anaglyph);
 			this.mcProfiler.endSection();
 		}
 
@@ -982,9 +982,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 							RenderChunk.renderChunksUpdated != 1 ? "s" : "",
 							(float) this.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT
 									.getValueMax() ? "inf" : Integer.valueOf(this.gameSettings.limitFramerate),
-					this.gameSettings.enableVsync ? " vsync" : "", this.gameSettings.fancyGraphics ? "" : " fast",
-					this.gameSettings.clouds == 0 ? ""
-							: (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"),
+							this.gameSettings.enableVsync ? " vsync" : "",
+							this.gameSettings.fancyGraphics ? "" : " fast",
+							this.gameSettings.clouds == 0 ? ""
+									: (this.gameSettings.clouds == 1 ? " fast-clouds" : " fancy-clouds"),
 							OpenGlHelper.useVbo() ? " vbo" : "" });
 			RenderChunk.renderChunksUpdated = 0;
 			this.debugUpdateTime += 1000L;
@@ -1852,7 +1853,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 				.printChatMessage((new TextComponentString(""))
 						.appendSibling((new TextComponentString("[Debug]: "))
 								.setStyle((new Style()).setColor(TextFormatting.YELLOW).setBold(Boolean.valueOf(true))))
-				.appendText(MessageFormat.format(p_184120_1_, p_184120_2_)));
+						.appendText(MessageFormat.format(p_184120_1_, p_184120_2_)));
 	}
 
 	public void launchIntegratedServer(String folderName, String worldName, @Nullable WorldSettings worldSettingsIn) {
