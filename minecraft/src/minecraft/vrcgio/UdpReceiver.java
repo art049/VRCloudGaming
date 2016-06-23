@@ -38,7 +38,8 @@ public class UdpReceiver implements Runnable {
 				socket.receive(packet);
 				
 				synchronized(this){
-					int a ;//Store pitch and yaw
+					pitchValue = buf[0];
+					yawValue = buf[1];
 				}
 
 			} catch (SocketException e) {
@@ -52,7 +53,11 @@ public class UdpReceiver implements Runnable {
 
 	}
 	
-	public synchronized void getPitch(){
+	public synchronized float getPitch(){
+		return (float) pitchValue; // TODO HANDLE Converting
+	}
+	public synchronized float getYaw(){
+		return (float) yawValue;
 		
 	}
 
