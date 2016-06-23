@@ -793,7 +793,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       return i > 200?1.0F:0.7F + MathHelper.sin(((float)i - partialTicks) * (float)Math.PI * 0.2F) * 0.3F;
    }
 
-   public void updateCameraAndRender(float partialTicks, long nanoTime) {
+   public void updateCameraAndRender(float partialTicks, long nanoTime, boolean anaglyph) {
       boolean flag = Display.isActive();
       if(!flag && this.mc.gameSettings.pauseOnLostFocus && (!this.mc.gameSettings.touchscreen || !Mouse.isButtonDown(1))) {
          if(Minecraft.getSystemTime() - this.prevFrameTime > 500L) {
@@ -811,15 +811,32 @@ public class EntityRenderer implements IResourceManagerReloadListener {
       }
 
       if(this.mc.inGameHasFocus && flag) {
-         this.mc.mouseHelper.mouseXYChange();
-         float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
-         float f1 = f * f * f * 8.0F;
-         float f2 = (float)this.mc.mouseHelper.deltaX * f1;
-         float f3 = (float)this.mc.mouseHelper.deltaY * f1;
-         int i = 1;
-         if(this.mc.gameSettings.invertMouse) {
-            i = -1;
-         }
+    	  float f2;
+		float f3;
+		int i;
+		//Begin VRCG
+		if(!anaglyph)
+    	  {
+    		  this.mc.mouseHelper.mouseXYChange();
+    		  float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
+    		  float f1 = f * f * f * 8.0F;
+    		   f2 = (float)this.mc.mouseHelper.deltaX * f1;
+    		   f3 = (float)this.mc.mouseHelper.deltaY * f1;
+    		  i = 1;
+    		  if(this.mc.gameSettings.invertMouse) {
+    			  i = -1;
+    		  }
+    	  }
+    	  else
+    	  {
+    		  //modify f2 and f3 for angles.
+    		  f2 = 0.0F;
+    		  f3 = 0.0F;
+    		  f2 /= 0.15F;
+    		  f3 /= 0.15F;
+    		  i= 1;
+    	  }
+		//End VRCG
 
          if(this.mc.gameSettings.smoothCamera) {
             this.smoothCamYaw += f2;

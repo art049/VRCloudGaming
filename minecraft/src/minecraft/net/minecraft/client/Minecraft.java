@@ -895,7 +895,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
       this.mcProfiler.endSection();
       if(!this.skipRenderWorld) {
          this.mcProfiler.endStartSection("gameRenderer");
-         this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i);
+         this.entityRenderer.updateCameraAndRender(this.timer.renderPartialTicks, i,this.gameSettings.anaglyph);
          this.mcProfiler.endSection();
       }
 

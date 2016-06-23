@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class GuiNewChat extends Gui {
+	private int barHeight = 22;
    private static final Splitter NEWLINE_SPLITTER = Splitter.on('\n');
    private static final Joiner NEWLINE_STRING_JOINER = Joiner.on("\\n");
    private static final Logger LOGGER = LogManager.getLogger();
@@ -67,7 +68,14 @@ public class GuiNewChat extends Gui {
                      ++j;
                      if(l1 > 3) {
                         int i2 = 0;
-                        int j2 = -i1 * 9-GuiIngame.heightLevel+20;
+                        //Begin VRCG
+                        if(this.mc.gameSettings.anaglyph)
+                        	this.barHeight = GuiIngame.heightLevel-20;
+                        else
+                        	this.barHeight = 0;
+                        
+                        int j2 = -i1 * 9-this.barHeight;
+                        //End VRCG
                         drawRect(i2 - 2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                         String s = chatline.getChatComponent().getFormattedText();
                         GlStateManager.enableBlend();

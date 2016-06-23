@@ -16,6 +16,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 public class GuiChat extends GuiScreen implements ITabCompleter {
+	private int barHeight;
    private static final Logger LOGGER = LogManager.getLogger();
    private String historyBuffer = "";
    private int sentHistoryCursor = -1;
@@ -33,7 +34,11 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
    public void initGui() {
       Keyboard.enableRepeatEvents(true);
       this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
-      this.inputField = new GuiTextField(0, this.fontRendererObj, 4, this.height - GuiIngame.heightLevel-20, this.width - 4, 12);
+      if (this.mc.gameSettings.anaglyph)
+    	  this.barHeight = GuiIngame.heightLevel+20;
+      else 
+    	  this.barHeight = 12;
+      this.inputField = new GuiTextField(0, this.fontRendererObj, 4, this.height - this.barHeight, this.width - 4, 12);
       this.inputField.setMaxStringLength(100);
       this.inputField.setEnableBackgroundDrawing(false);
       this.inputField.setFocused(true);
@@ -143,7 +148,13 @@ public class GuiChat extends GuiScreen implements ITabCompleter {
    }
 
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-      drawRect(2, this.height - GuiIngame.heightLevel-2-20, this.width - 2, this.height - GuiIngame.heightLevel+10-20, Integer.MIN_VALUE);
+	   //Begin VRCG
+	   if (this.mc.gameSettings.anaglyph)
+		   this.barHeight = GuiIngame.heightLevel +20;
+	   else
+		   this.barHeight = 12;
+      drawRect(2, this.height -this.barHeight -2, this.width - 2, this.height - this.barHeight+10, Integer.MIN_VALUE);
+     //End VRCG
       this.inputField.drawTextBox();
       ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
       if(itextcomponent != null && itextcomponent.getStyle().getHoverEvent() != null) {
