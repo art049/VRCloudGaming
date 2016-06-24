@@ -75,7 +75,6 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
-<<<<<<< HEAD
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
