@@ -2747,4 +2747,5 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public BlockColors getBlockColors() {
 		return this.blockColors;
 	}
+
 }

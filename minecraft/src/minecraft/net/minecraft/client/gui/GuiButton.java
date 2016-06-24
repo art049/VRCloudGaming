@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import org.lwjgl.opengl.Display;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -78,6 +80,9 @@ public class GuiButton extends Gui {
    }
 
    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+	   if (mc.gameSettings.anaglyph){
+		      return this.enabled && this.visible && mouseX >= this.xPosition/2 && mouseY >= this.yPosition && mouseX < this.xPosition/2 + this.width/2 && mouseY < this.yPosition + this.height;
+	   }
       return this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
    }
 

@@ -70,6 +70,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
@@ -911,7 +912,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 			int i1 = scaledresolution.getScaledWidth();
 			int j1 = scaledresolution.getScaledHeight();
-			final int k1 = Mouse.getX() * i1 / this.mc.displayWidth;
+			final int k1 = Mouse.getX() * i1 / this.mc.displayWidth*2;
 			final int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
 			int i2 = this.mc.gameSettings.limitFramerate;
 			if (this.mc.theWorld != null) {
@@ -945,7 +946,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.mc.mcProfiler.endStartSection("gui");
 				if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
 					GlStateManager.alphaFunc(516, 0.1F);
-					this.mc.ingameGUI.renderGameOverlay(partialTicks);
+					
+					
+					// BEGIN VRCG
+					if(mc.gameSettings.anaglyph){
+						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
+					
+						this.mc.ingameGUI.renderGameOverlay(partialTicks);	
+						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
+						this.mc.ingameGUI.renderGameOverlay(partialTicks);					}
+					else
+						this.mc.ingameGUI.renderGameOverlay(partialTicks);
 				}
 
 				this.mc.mcProfiler.endSection();
@@ -963,7 +974,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				GlStateManager.clear(256);
 
 				try {
-					this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
+					// BEGIN VRCG
+					if(mc.gameSettings.anaglyph){
+						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
+					
+						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
+						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
+						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
+
+					}
+					else 
+						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
+
 				} catch (Throwable throwable) {
 					CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering screen");
 					CrashReportCategory crashreportcategory = crashreport.makeCategory("Screen render details");
