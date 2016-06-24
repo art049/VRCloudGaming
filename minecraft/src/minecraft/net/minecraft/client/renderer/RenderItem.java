@@ -233,7 +233,7 @@ public class RenderItem implements IResourceManagerReloadListener {
       if(stack.getItem() != null) {
          this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+         GlStateManager.color(0.0F, 0.0F, 1.0F, 1.0F);
          GlStateManager.enableRescaleNormal();
          GlStateManager.alphaFunc(516, 0.1F);
          GlStateManager.enableBlend();

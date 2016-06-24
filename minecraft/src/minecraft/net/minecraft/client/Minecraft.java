@@ -201,6 +201,7 @@ import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 
 public class Minecraft implements IThreadListener, ISnooperInfo {
+<<<<<<< HEAD
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation LOCATION_MOJANG_PNG = new ResourceLocation("textures/gui/title/mojang.png");
 	public static final boolean IS_RUNNING_ON_MAC = Util.getOSType() == Util.EnumOS.OSX;
@@ -2744,4 +2745,5 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	public BlockColors getBlockColors() {
 		return this.blockColors;
 	}
+
 }
