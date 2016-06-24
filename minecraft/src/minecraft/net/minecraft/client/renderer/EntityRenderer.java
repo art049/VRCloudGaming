@@ -75,6 +75,10 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
+	private float oldPitch = 0 ;
+	private float oldYaw = 0;
+	private float newPitch = 0;
+	private float newYaw = 0;
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
@@ -880,12 +884,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					i = -1;
 				}
 			} else {
-				// modify f2 and f3 for angles.
+				// modify f2 and f3 they are variations of angles.
+				this.oldPitch = this.newPitch;
+				this.oldYaw = this.newYaw;
 
-				f2 = this.mc.receiver.getPitch();
-				f3 = this.mc.receiver.getYaw();
-				System.out.println("Pitch" + f2);
-				System.out.println("Yaw" + f3);
+				this.newPitch = this.mc.receiver.getPitch();
+				this.newYaw = this.mc.receiver.getYaw();
+				f2 = this.newPitch - this.oldPitch;
+				f3 = this.newYaw -this.oldYaw;
 				f2 /= 0.15F;
 				f3 /= 0.15F;
 				i = 1;
@@ -898,11 +904,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.smoothCamPartialTicks = partialTicks;
 				f2 = this.smoothCamFilterX * f4;
 				f3 = this.smoothCamFilterY * f4;
-				this.mc.thePlayer.setAngles(f2, f3 * (float) i, this.mc.gameSettings.anaglyph);
+				this.mc.thePlayer.setAngles(f2, f3 * (float) i);
 			} else {
 				this.smoothCamYaw = 0.0F;
 				this.smoothCamPitch = 0.0F;
-				this.mc.thePlayer.setAngles(f2, f3 * (float) i, this.mc.gameSettings.anaglyph);
+				this.mc.thePlayer.setAngles(f2, f3 * (float) i);
 			}
 		}
 
@@ -1183,7 +1189,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		this.mc.mcProfiler.endStartSection("prepareterrain");
 		this.setupFog(0, partialTicks);
 		this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		RenderHelper.disableStandardItemLighting();
+		//RenderHelper.disableStandardItemLighting();
 		this.mc.mcProfiler.endStartSection("terrain_setup");
 		renderglobal.setupTerrain(entity, (double) partialTicks, icamera, this.frameCount++,
 				this.mc.thePlayer.isSpectator());
