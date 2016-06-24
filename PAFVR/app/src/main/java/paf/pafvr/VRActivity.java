@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -109,7 +110,7 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     private static final int SERVER_PORT = 5000;
     private static final String SERVER_IP = "192.168.42.220";
     boolean listening = true;
-
+    private GyroThread gyrothread;
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
@@ -134,6 +135,9 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         GLES20.glClearColor(1f, 1f, 1f, 1f);
 
         //new Thread(new ServerThread()).start();
+        gyrothread = new GyroThread(this);
+        gyrothread.start();
+
     }
 
 
@@ -267,88 +271,22 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     }*/
 
 
-    /*class ClientThread implements Runnable {
 
-        boolean connectionStarted = false;
-        byte[] buffer = new byte[32 * 1024];
-        String string = new String();
-
-        @Override
-        public void run() {
-
-            while (!connectionStarted) {
-                try {
-                    InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-                    mSocket = new Socket(serverAddr, SERVERPORT);
-                    connectionStarted = true;
-
-                } catch (UnknownHostException e1) {
-                    //e1.printStackTrace();
-                    Log.e("connection", "connection failed");
-                } catch (IOException e1) {
-                    //e1.printStackTrace();
-                    Log.e("connection", "connection failed");
-                }
-
-            }
-            while (mSocket == null) ;
-            Log.d("serveur", "Socket created");
-
-            try {
-                BufferedInputStream in = new BufferedInputStream(mSocket.getInputStream());
-                while (listening) {
-                    try {
-                        int d = in.read();
-                        if(d==-1) Log.d("connection", "eof");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }*/
 
     @Override
     public void onNewFrame(HeadTransform headTransform){
-
         float[] angles = new float[3];
         headTransform.getEulerAngles(angles, 0);
-        String messageStr = angles[0] +" "+ angles[1];
+        gyrothread.setYawPitch(angles[0], angles[1]);
+
         //Log.d(TAG, messageStr);
-        new GyroTask().execute(messageStr);
+        //new GyroTask().execute(messageStr);
         //Log.d("tag", "lol");
     }
 
     @Override
     public void onDrawEye(Eye eye) {
 
-        /* Pour deux images
-        switch(eye.getType()){
-            case(Eye.Type.LEFT):
-                synchronized (this) {
-                    if (updateSurfaceLeft) {
-                        mSurfaceLeft.updateTexImage();
-                        mSurfaceLeft.getTransformMatrix(mSTMatrix);
-                        updateSurfaceLeft = false;
-                    }
-                }
-                break;
-            case(Eye.Type.RIGHT):
-                synchronized (this) {
-                    if (updateSurfaceRight) {
-                        mSurfaceRight.updateTexImage();
-                        mSurfaceRight.getTransformMatrix(mSTMatrix);
-                        updateSurfaceRight = false;
-                    }
-                }
-                break;
-        }*/
-
-        /* Pour une seule image coupée en deux*/
         synchronized(this) {
             mSurfaceBoth.updateTexImage();
             mSurfaceBoth.getTransformMatrix(mSTMatrix);
@@ -379,18 +317,6 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         checkGlError("glUseProgram");
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-
-        /* Pour deux images
-        switch(eye.getType()){
-            case(Eye.Type.LEFT): {
-                GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDLeft);
-                break;
-            }
-            case(Eye.Type.RIGHT): {
-                GLES20.glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureIDRight);
-                break;
-            }
-        }*/
 
         mTriangleVertices.position(TRIANGLE_VERTICES_DATA_POS_OFFSET);
         GLES20.glVertexAttribPointer(maPositionHandle, 3, GLES20.GL_FLOAT, false,
