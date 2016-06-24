@@ -89,6 +89,8 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import net.minecraft.util.ScreenShotHelper;;
+
 public class RenderGlobal implements IWorldEventListener, IResourceManagerReloadListener {
    private static final Logger LOGGER = LogManager.getLogger();
    private static final ResourceLocation MOON_PHASES_TEXTURES = new ResourceLocation("textures/environment/moon_phases.png");
@@ -149,6 +151,12 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
    private final Set<BlockPos> setLightUpdates = Sets.<BlockPos>newHashSet();
 
    public RenderGlobal(Minecraft mcIn) {
+	  try {
+		mcIn.ffmpegpipe.pushImage(ScreenShotHelper.createScreenshot(mcIn.displayWidth, mcIn.displayHeight, mcIn.getFramebuffer()));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
       this.mc = mcIn;
       this.renderManager = mcIn.getRenderManager();
       this.renderEngine = mcIn.getTextureManager();

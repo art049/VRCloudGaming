@@ -881,8 +881,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			} else {
 				// modify f2 and f3 for angles.
 
-				f2 = this.mc.receiver.getPitch();
-				f3 = this.mc.receiver.getYaw();
+				f2 = -this.mc.receiver.getPitch();
+				f3 = -this.mc.receiver.getYaw();
 				System.out.println("Pitch" + f2);
 				System.out.println("Yaw" + f3);
 				f2 /= 0.15F;

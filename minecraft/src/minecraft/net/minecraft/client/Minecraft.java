@@ -182,6 +182,7 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
+import vrcgio.FFmpegPIPE;
 import vrcgio.UdpReceiver;
 
 import org.apache.commons.io.IOUtils;
@@ -306,11 +307,13 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private String debugProfilerName = "root";
 
 	// BEGIN VRCG
+	public FFmpegPIPE ffmpegpipe;
 	public UdpReceiver receiver;
 
 	public Minecraft(GameConfiguration gameConfig) {
-		receiver = new UdpReceiver();
-		receiver.startThreadReceiver();
+		ffmpegpipe = new FFmpegPIPE();
+		receiver = new UdpReceiver("r0");
+		receiver.start();
 		// END VRCG
 		theMinecraft = this;
 		this.mcDataDir = gameConfig.folderInfo.mcDataDir;
