@@ -1,18 +1,16 @@
 package paf.pafvr;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
-import android.media.AudioManager;
-import android.media.MediaCodecList;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
+import android.view.MotionEvent;
 import android.view.Surface;
-import android.widget.EditText;
+import android.view.View;
 
 import com.google.vr.sdk.base.Eye;
 import com.google.vr.sdk.base.GvrActivity;
@@ -20,17 +18,10 @@ import com.google.vr.sdk.base.GvrView;
 import com.google.vr.sdk.base.HeadTransform;
 import com.google.vr.sdk.base.Viewport;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -39,15 +30,13 @@ import java.util.Scanner;
 import javax.microedition.khronos.egl.EGLConfig;
 
 import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.Vitamio;
-import io.vov.vitamio.widget.VideoView;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by Aloïs on 16/06/2016.
  */
-public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener, MediaPlayer.OnPreparedListener, IjkMediaPlayer.OnPreparedListener {
+public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, SurfaceTexture.OnFrameAvailableListener, MediaPlayer.OnPreparedListener, IjkMediaPlayer.OnPreparedListener{
 
     private float[] mMVPMatrix = new float[16];
     private float[] mSTMatrix = new float[16];
@@ -75,6 +64,8 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     private MediaPlayer mMediaPlayerRight;
     private MediaPlayer mMediaPlayerBoth;
     private IjkMediaPlayer mIjkMediaPlayerBoth;
+
+    private Uri myUri;
 
     Point size;
 
@@ -122,6 +113,13 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+
+
+        Intent tetherSettings = new Intent();
+        tetherSettings.setClassName("com.android.settings", "com.android.settings.TetherSettings");
+        startActivity(tetherSettings);
+
+
         if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
             return;
         setContentView(R.layout.vr_layout);
@@ -138,10 +136,10 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         //new Thread(new ServerThread()).start();
     }
 
+
     @Override
     public void onPrepared(MediaPlayer mp) {
         Log.d(TAG, "onPrepared called");
-        mp.setBufferSize(0);
         mp.start();
     }
 
@@ -149,9 +147,29 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     public void onPrepared(IMediaPlayer mp) {
 
         Log.d(TAG, "onPrepared called");
+        /*mIjkMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0);
+        mIjkMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "probesize", 0);
+        mIjkMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);*/
+        /* mIjkMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, );
+        mMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "analyzemaxduration", 100);
+
+
+        mMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "framedrop", 1);
+        mMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "start-on-prepared", 1);
+
+        mMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_frame", 8);
+        mMediaPlayerBoth.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48);*/
         mp.start();
     }
 
+    public void restartActivity(View v) {
+
+        mMediaPlayerBoth.stop();
+        mMediaPlayerBoth.release();
+        /*mIjkMediaPlayerBoth.stop();
+        mIjkMediaPlayerBoth.release();*/
+        recreate();
+    }
 
     class ServerThread implements Runnable {
         private ServerSocket server;
@@ -297,11 +315,12 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
     @Override
     public void onNewFrame(HeadTransform headTransform){
 
-        /*float[] angles = new float[3];
-        headTransform.getEulerAngles(angles,0);
-        String messageStr = "angle 1:" + angles[0] + " angle 2:" + angles[1] + " angle 3:" + angles[2];
+        float[] angles = new float[3];
+        headTransform.getEulerAngles(angles, 0);
+        String messageStr = angles[0] +" "+ angles[1];
+        //Log.d(TAG, messageStr);
         new GyroTask().execute(messageStr);
-        Log.d("tag", "lol");*/
+        //Log.d("tag", "lol");
     }
 
     @Override
@@ -493,31 +512,33 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         mSurfaceBoth = new SurfaceTexture(mTextureIDBoth);
         mSurfaceBoth.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
         Surface surfaceBoth = new Surface(mSurfaceBoth);
-        Uri path = Uri.parse("udp://224.0.0.1:5454?Listen");
+        myUri = Uri.parse("udp://localhost:5454?Listen");
         //String path = "raw/cat.mp4";
 
-        /* Avec le MediaPlayer de Vitamio
+        // Avec le MediaPlayer de Vitamio
         mMediaPlayerBoth = new MediaPlayer(this);
         try {
-            mMediaPlayerBoth.setDataSource(this, path);
+            mMediaPlayerBoth.setDataSource(this, myUri);
             mMediaPlayerBoth.setAdaptiveStream(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
         mMediaPlayerBoth.setSurface(surfaceBoth);
+        mMediaPlayerBoth.setBufferSize(0);
         mMediaPlayerBoth.prepareAsync();
         mMediaPlayerBoth.setOnPreparedListener(this);
-        */
 
+
+        /* Avec ijk
         mIjkMediaPlayerBoth = new IjkMediaPlayer();
         try {
-            mIjkMediaPlayerBoth.setDataSource(this, path);
+            mIjkMediaPlayerBoth.setDataSource(this, myUri);
             mIjkMediaPlayerBoth.setSurface(surfaceBoth);
             mIjkMediaPlayerBoth.prepareAsync();
             mIjkMediaPlayerBoth.setOnPreparedListener(this);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         synchronized (this) {
             updateSurfaceBoth = false;

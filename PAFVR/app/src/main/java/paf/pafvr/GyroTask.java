@@ -15,14 +15,14 @@ public class GyroTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... params) {
         String messageStr = params[0];
-        int server_port = 5001;
+        int server_port = 8345;
 
         DatagramSocket s;
         try {
             s = new DatagramSocket();
             InetAddress local;
             try {
-                local = InetAddress.getByName("192.168.1.8");
+                local = InetAddress.getByName("192.168.1.17");
                 int msg_length = messageStr.length();
                 byte[] message = messageStr.getBytes();
                 DatagramPacket p = new DatagramPacket(message, msg_length, local, server_port);
