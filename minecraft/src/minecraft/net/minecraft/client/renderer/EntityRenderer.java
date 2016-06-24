@@ -912,7 +912,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 			int i1 = scaledresolution.getScaledWidth();
 			int j1 = scaledresolution.getScaledHeight();
-			final int k1 = Mouse.getX() * i1 / this.mc.displayWidth*2;
+			// BEGIN VRCG
+			int k1c = Mouse.getX() * i1 / this.mc.displayWidth;
+			if (mc.gameSettings.anaglyph){
+				k1c *= 2;
+			}
+			final int k1 = k1c;
 			final int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
 			int i2 = this.mc.gameSettings.limitFramerate;
 			if (this.mc.theWorld != null) {
