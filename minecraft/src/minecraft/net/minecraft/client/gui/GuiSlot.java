@@ -94,6 +94,12 @@ public abstract class GuiSlot {
    public int getSlotIndexFromScreenCoords(int posX, int posY) {
       int i = this.left + this.width / 2 - this.getListWidth() / 2;
       int j = this.left + this.width / 2 + this.getListWidth() / 2;
+      // BEGIN VRCG
+      if(mc.gameSettings.anaglyph)
+      {
+    	  i/=2;
+    	  j/=2;
+      }
       int k = posY - this.top - this.headerPadding + (int)this.amountScrolled - 4;
       int l = k / this.slotHeight;
       return posX < this.getScrollBarX() && posX >= i && posX <= j && l >= 0 && k >= 0 && l < this.getSize()?l:-1;

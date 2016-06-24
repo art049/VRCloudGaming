@@ -29,9 +29,9 @@ public abstract class GuiListExtended extends GuiSlot {
       if(this.isMouseYWithinSlotBounds(mouseY)) {
          int i = this.getSlotIndexFromScreenCoords(mouseX, mouseY);
          if(i >= 0) {
-            int j = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
+            int j = this.left + this.width - this.getListWidth() / 2 + 2;
             int k = this.top + 4 - this.getAmountScrolled() + i * this.slotHeight + this.headerPadding;
-            int l = mouseX - j;
+            int l = mouseX - j/2;
             int i1 = mouseY - k;
             if(this.getListEntry(i).mousePressed(i, mouseX, mouseY, mouseEvent, l, i1)) {
                this.setEnabled(false);
