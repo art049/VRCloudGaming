@@ -292,28 +292,22 @@ public abstract class Entity implements ICommandSender {
 				new AxisAlignedBB(x - (double) f, y, z - (double) f, x + (double) f, y + (double) f1, z + (double) f));
 	}
 
-	public void setAngles(float yaw, float pitch, boolean ana) {
-		if (!ana) {
-			float f = this.rotationPitch;
-			float f1 = this.rotationYaw;
-			this.rotationYaw = (float) ((double) this.rotationYaw + (double) yaw * 0.15D);
-			this.rotationPitch = (float) ((double) this.rotationPitch - (double) pitch * 0.15D);
-			this.rotationPitch = MathHelper.clamp_float(this.rotationPitch, -90.0F, 90.0F);
-			this.prevRotationPitch += this.rotationPitch - f;
-			this.prevRotationYaw += this.rotationYaw - f1;
-			if (this.ridingEntity != null) {
-				this.ridingEntity.applyOrientationToEntity(this);
-			}
-		} else {
-			this.rotationYaw = yaw * 0.15F;
-			this.rotationPitch = pitch * 0.15F;
-			this.rotationPitch = MathHelper.clamp_float(this.rotationPitch, -90.0F, 90.0F);
-			if (this.ridingEntity != null) {
-				this.ridingEntity.applyOrientationToEntity(this);
-			}
-		}
+	public void setAngles(float deltaYaw, float deltaPitch) {
 
+		float f = this.rotationPitch;
+		float f1 = this.rotationYaw;
+		this.rotationYaw = (float) ((double) this.rotationYaw + (double) deltaYaw * 0.15D);
+		this.rotationPitch = (float) ((double) this.rotationPitch - (double) deltaPitch * 0.15D);
+		this.rotationPitch = MathHelper.clamp_float(this.rotationPitch, -90.0F, 90.0F);
+		this.prevRotationPitch += this.rotationPitch - f;
+		this.prevRotationYaw += this.rotationYaw - f1;
+		if (this.ridingEntity != null) {
+			this.ridingEntity.applyOrientationToEntity(this);
+
+		}
 	}
+
+	
 
 	public void onUpdate() {
 		if (!this.worldObj.isRemote) {
