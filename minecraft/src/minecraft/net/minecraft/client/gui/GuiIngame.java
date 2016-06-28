@@ -363,14 +363,12 @@ public class GuiIngame extends Gui {
 
 				if (pass == 0)// right view
 				{
-					this.drawTexturedModalRect((int) (l / 2 - 7 - this.deltaFocus(distanceToB)), i1 / 2 - 7, 0, 0, 16,
+					this.drawTexturedModalRect((int) (l / 2 - 7 ), i1 / 2 - 7, 0, 0, 16,
 							16);
 
 				}
 
-				else if (pass == 1)// left view
-					this.drawTexturedModalRect((int) (l / 2 - 7 + this.deltaFocus(distanceToB)), i1 / 2 - 7, 0, 0, 16,
-							16);
+				
 				else if (pass == 2)// normal mode
 					this.drawTexturedModalRect(l / 2 - 7, i1 / 2 - 7, 0, 0, 16, 16);
 				if (this.mc.gameSettings.attackIndicator == 1) {
@@ -389,7 +387,10 @@ public class GuiIngame extends Gui {
 
 	private int deltaFocus(float distanceToB) {
 		// TODO Auto-generated method stub
-		float farPlane = this.mc.gameSettings.renderDistanceChunks * 4  ;
+		/**
+		 * change the position of the aim according to the distance of RayTraceresult
+		 */
+		float farPlane = this.mc.gameSettings.renderDistanceChunks * 4;
 		double y = -distanceToB + 20;
 		if (this.mc.objectMouseOver.typeOfHit.equals(Type.MISS))
 			return 0;
