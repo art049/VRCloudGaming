@@ -28,8 +28,6 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GLContext;
-import oshi.SystemInfo;
-import oshi.hardware.Processor;
 
 public class OpenGlHelper {
    private static final Logger LOGGER = LogManager.getLogger();
@@ -250,13 +248,6 @@ public class OpenGlHelper {
          } else {
             GameSettings.Options.RENDER_DISTANCE.setValueMax(16.0F);
          }
-      }
-
-      try {
-         Processor[] aprocessor = (new SystemInfo()).getHardware().getProcessors();
-         cpu = String.format("%dx %s", new Object[]{Integer.valueOf(aprocessor.length), aprocessor[0]}).replaceAll("\\s+", " ");
-      } catch (Throwable var3) {
-         ;
       }
    }
 
