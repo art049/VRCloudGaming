@@ -8,12 +8,12 @@ guiScale:0
 particles:0
 bobView:true
 anaglyph3d:true
-maxFps:120
+maxFps:50
 fboEnable:true
 difficulty:2
-fancyGraphics:true
+fancyGraphics:false
 ao:2
-renderClouds:true
+renderClouds:false
 resourcePacks:[]
 incompatibleResourcePacks:[]
 lastServer:

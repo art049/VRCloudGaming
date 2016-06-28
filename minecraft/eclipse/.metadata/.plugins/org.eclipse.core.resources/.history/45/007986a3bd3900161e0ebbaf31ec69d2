@@ -1,0 +1,41 @@
+package vrcgio;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+
+import javax.imageio.ImageIO;
+
+
+
+public class FFmpegPIPE {
+	private BufferedImage current;
+	private PipedInputStream pipestream;
+	private PipedOutputStream tmpstream;
+	public FFmpegPIPE(){
+		ProcessBuilder builder = new ProcessBuilder("ffmpeg", "-f", "image2pipe", "-r", "1", "-vcodec", "png", "-i", "-", "-vcodec", "libx264", "out.mp4");
+		Process process = null;
+		try {
+			process = builder.start();
+			pipestream = (PipedInputStream) process.getInputStream();		
+			tmpstream = new PipedOutputStream( pipestream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			process = null;
+			e.printStackTrace();
+		}
+
+	}
+	public void pushImage(BufferedImage p) throws IOException{
+		this.current = p;
+
+		ImageIO.write(p, "jpg", tmpstream);
+	}
+	
+	public void run() throws IOException{
+		
+	}
+}

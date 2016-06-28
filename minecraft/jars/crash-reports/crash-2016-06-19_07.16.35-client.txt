@@ -1,0 +1,78 @@
+---- Minecraft Crash Report ----
+// Oh - I know what I did wrong!
+
+Time: 6/19/16 7:16 AM
+Description: Updating screen events
+
+java.lang.Error: Unresolved compilation problem: 
+	Unhandled exception type IOException
+
+	at net.minecraft.client.Minecraft.loadWorld(Minecraft.java:1854)
+	at net.minecraft.client.Minecraft.launchIntegratedServer(Minecraft.java:1795)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.loadWorld(GuiListWorldSelectionEntry.java:183)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.joinWorld(GuiListWorldSelectionEntry.java:146)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.mousePressed(GuiListWorldSelectionEntry.java:123)
+	at net.minecraft.client.gui.GuiListExtended.mouseClicked(GuiListExtended.java:36)
+	at net.minecraft.client.gui.GuiWorldSelection.mouseClicked(GuiWorldSelection.java:87)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:391)
+	at net.minecraft.client.gui.GuiWorldSelection.handleMouseInput(GuiWorldSelection.java:33)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:369)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1400)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:892)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:366)
+	at net.minecraft.client.main.Main.main(Main.java:100)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at net.minecraft.client.Minecraft.loadWorld(Minecraft.java:1854)
+	at net.minecraft.client.Minecraft.launchIntegratedServer(Minecraft.java:1795)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.loadWorld(GuiListWorldSelectionEntry.java:183)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.joinWorld(GuiListWorldSelectionEntry.java:146)
+	at net.minecraft.client.gui.GuiListWorldSelectionEntry.mousePressed(GuiListWorldSelectionEntry.java:123)
+	at net.minecraft.client.gui.GuiListExtended.mouseClicked(GuiListExtended.java:36)
+	at net.minecraft.client.gui.GuiWorldSelection.mouseClicked(GuiWorldSelection.java:87)
+	at net.minecraft.client.gui.GuiScreen.handleMouseInput(GuiScreen.java:391)
+	at net.minecraft.client.gui.GuiWorldSelection.handleMouseInput(GuiWorldSelection.java:33)
+	at net.minecraft.client.gui.GuiScreen.handleInput(GuiScreen.java:369)
+
+-- Affected screen --
+Details:
+	Screen name: net.minecraft.client.gui.GuiWorldSelection
+Stacktrace:
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1400)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:892)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:366)
+	at net.minecraft.client.main.Main.main(Main.java:100)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9.4
+	Operating System: Linux (amd64) version 4.5.3-1-ARCH
+	Java Version: 1.8.0_92, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 686339272 bytes (654 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: Mesa DRI Intel(R) Haswell Mobile  GL version 3.0 Mesa 11.2.1, Intel Open Source Technology Center
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: No
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: net.minecraft.client.Minecraft$15@3494a35e

@@ -1,0 +1,64 @@
+---- Minecraft Crash Report ----
+// This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]
+
+Time: 6/20/16 8:17 PM
+Description: Initializing game
+
+org.lwjgl.LWJGLException: X Error - disp: 0x7f91b4a052f0 serial: 140 error: BadValue (integer parameter out of range for operation) request_code: 155 minor_code: 24
+	at org.lwjgl.opengl.LinuxDisplay.globalErrorHandler(LinuxDisplay.java:320)
+	at org.lwjgl.opengl.LinuxContextImplementation.nCreate(Native Method)
+	at org.lwjgl.opengl.LinuxContextImplementation.create(LinuxContextImplementation.java:51)
+	at org.lwjgl.opengl.ContextGL.<init>(ContextGL.java:132)
+	at org.lwjgl.opengl.Display.create(Display.java:850)
+	at org.lwjgl.opengl.Display.create(Display.java:757)
+	at org.lwjgl.opengl.Display.create(Display.java:739)
+	at net.minecraft.client.Minecraft.createDisplay(Minecraft.java:535)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:408)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:349)
+	at net.minecraft.client.main.Main.main(Main.java:100)
+	at Start.main(Start.java:11)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at org.lwjgl.opengl.LinuxDisplay.globalErrorHandler(LinuxDisplay.java:320)
+	at org.lwjgl.opengl.LinuxContextImplementation.nCreate(Native Method)
+	at org.lwjgl.opengl.LinuxContextImplementation.create(LinuxContextImplementation.java:51)
+	at org.lwjgl.opengl.ContextGL.<init>(ContextGL.java:132)
+	at org.lwjgl.opengl.Display.create(Display.java:850)
+	at org.lwjgl.opengl.Display.create(Display.java:757)
+	at org.lwjgl.opengl.Display.create(Display.java:739)
+	at net.minecraft.client.Minecraft.createDisplay(Minecraft.java:535)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:408)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.run(Minecraft.java:349)
+	at net.minecraft.client.main.Main.main(Main.java:100)
+	at Start.main(Start.java:11)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9.4
+	Operating System: Linux (amd64) version 4.5.3-1-ARCH
+	Java Version: 1.8.0_92, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 764018632 bytes (728 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	Launched Version: mcp
+	LWJGL: 2.9.4
+	OpenGL: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	GL Caps: 
+	Using VBOs: No
+	Is Modded: Very likely; Jar signature invalidated
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: ~~ERROR~~ NullPointerException: null
+	Profiler Position: N/A (disabled)
+	CPU: net.minecraft.client.Minecraft$15@4cb0a000

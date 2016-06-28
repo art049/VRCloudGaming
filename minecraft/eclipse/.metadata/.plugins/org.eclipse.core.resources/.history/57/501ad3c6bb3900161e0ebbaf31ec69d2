@@ -1,0 +1,12 @@
+package vrcgio;
+
+import java.awt.image.BufferedImage;
+
+
+
+public class FFmpegPIPE {
+	private BufferedImage current;
+	public void pushImage(BufferedImage p){
+		this.current = p;
+	}
+}

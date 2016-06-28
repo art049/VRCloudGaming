@@ -30,15 +30,18 @@ public class UdpReceiver extends Thread {
 			try {
 				DatagramPacket packet = new DatagramPacket(buf, buf.length);
 				socket.receive(packet);
-				System.out.println("packet");
+				//System.out.println("Received "+packet.toString());
 				String str = new String(buf, "utf-8");
 				String[] splitStr = str.split(" ");
 				String yawStr = splitStr[0];
 				String pitchStr = splitStr[1];
 				
 				synchronized(this){
-					pitchValue = (float) (Float.parseFloat(pitchStr)*180/Math.PI);
-					yawValue = (float) (Float.parseFloat(yawStr)*180/Math.PI);
+					try {
+						pitchValue = (float) (Float.parseFloat(pitchStr)*180/Math.PI);
+						yawValue = (float) (Float.parseFloat(yawStr)*180/Math.PI);
+					}
+					catch (Exception e){}
 				}
 
 			} catch (SocketException e) {

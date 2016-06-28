@@ -151,12 +151,8 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
    private final Set<BlockPos> setLightUpdates = Sets.<BlockPos>newHashSet();
 
    public RenderGlobal(Minecraft mcIn) {
-	  try {
-		mcIn.ffmpegpipe.pushImage(ScreenShotHelper.createScreenshot(mcIn.displayWidth, mcIn.displayHeight, mcIn.getFramebuffer()));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		
+
       this.mc = mcIn;
       this.renderManager = mcIn.getRenderManager();
       this.renderEngine = mcIn.getTextureManager();

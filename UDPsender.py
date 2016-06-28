@@ -1,0 +1,16 @@
+import socket
+
+UDP_IP = "127.0.0.1"
+UDP_PORT = 8345
+
+print("UDP target IP:"+ str(UDP_IP))
+print("UDP target port:"+ str(UDP_PORT))
+
+sock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
+pitch = 0
+yaw = 0
+while True:
+    sock.sendto(str(pitch)+" "+str(yaw), (UDP_IP, UDP_PORT))
+    pitch = (pitch+1)%90
+    yaw = (yaw+1)%90

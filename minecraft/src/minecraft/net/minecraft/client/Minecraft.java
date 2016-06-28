@@ -1006,6 +1006,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 		}
 
 		this.mcProfiler.endSection();
+		this.ffmpegpipe.pushImage(ScreenShotHelper.createScreenshot(this.displayWidth, this.displayHeight, this.getFramebuffer()));
 	}
 
 	public void updateDisplay() {

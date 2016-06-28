@@ -1,0 +1,311 @@
+[
+    {
+        "outputFile": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/res/merged/debug/values-id/values-id.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 97,
+                    "endOffset": 198
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 316,
+                        "endColumn": 97,
+                        "endOffset": 409
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 203,
+                    "endColumn": 77,
+                    "endOffset": 276
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 414,
+                        "endColumn": 77,
+                        "endOffset": 487
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 281,
+                    "endColumn": 152,
+                    "endOffset": 429
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 492,
+                        "endColumn": 152,
+                        "endOffset": 640
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 434,
+                    "endColumn": 126,
+                    "endOffset": 556
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 645,
+                        "endColumn": 126,
+                        "endOffset": 767
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 561,
+                    "endColumn": 85,
+                    "endOffset": 642
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 772,
+                        "endColumn": 85,
+                        "endOffset": 853
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 647,
+                    "endColumn": 96,
+                    "endOffset": 739
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 858,
+                        "endColumn": 96,
+                        "endOffset": 950
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 744,
+                    "endColumn": 72,
+                    "endOffset": 812
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 955,
+                        "endColumn": 72,
+                        "endOffset": 1023
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 817,
+                    "endColumn": 115,
+                    "endOffset": 928
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1028,
+                        "endColumn": 115,
+                        "endOffset": 1139
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 933,
+                    "endColumn": 133,
+                    "endOffset": 1062
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1144,
+                        "endColumn": 133,
+                        "endOffset": 1273
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1067,
+                    "endColumn": 164,
+                    "endOffset": 1227
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1278,
+                        "endColumn": 164,
+                        "endOffset": 1438
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1232,
+                    "endColumn": 101,
+                    "endOffset": 1329
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1443,
+                        "endColumn": 101,
+                        "endOffset": 1540
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1334,
+                    "endColumn": 78,
+                    "endOffset": 1408
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1545,
+                        "endColumn": 78,
+                        "endOffset": 1619
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1413,
+                    "endColumn": 86,
+                    "endOffset": 1495
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1624,
+                        "endColumn": 86,
+                        "endOffset": 1706
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1500,
+                    "endColumn": 99,
+                    "endOffset": 1595
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1711,
+                        "endColumn": 99,
+                        "endOffset": 1806
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1600,
+                    "endColumn": 113,
+                    "endOffset": 1709
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1811,
+                        "endColumn": 113,
+                        "endOffset": 1920
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1714,
+                    "endColumn": 178,
+                    "endOffset": 1888
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-id/values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1925,
+                        "endColumn": 178,
+                        "endOffset": 2099
+                    }
+                }
+            }
+        ]
+    }
+]
