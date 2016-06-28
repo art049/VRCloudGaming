@@ -9,6 +9,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
+<<<<<<< HEAD
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +17,11 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+=======
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+>>>>>>> Decodage
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +51,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+<<<<<<< HEAD
 import org.lwjgl.opengl.GL11;
+=======
+>>>>>>> Decodage
 
 public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
    private static final Logger LOGGER = LogManager.getLogger();
@@ -448,7 +457,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
       vertexbuffer.pos((double)this.width, 0.0D, 0.0D).tex((double)((float)this.width / 32.0F), (double)tint).color(64, 64, 64, 255).endVertex();
       vertexbuffer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, (double)tint).color(64, 64, 64, 255).endVertex();
       tessellator.draw();
+<<<<<<< HEAD
       
+=======
+>>>>>>> Decodage
    }
 
    public boolean doesGuiPauseGame() {
@@ -508,7 +520,10 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
    public void onResize(Minecraft mcIn, int w, int h) {
       this.setWorldAndResolution(mcIn, w, h);
    }
+<<<<<<< HEAD
    
    
    
+=======
+>>>>>>> Decodage
 }

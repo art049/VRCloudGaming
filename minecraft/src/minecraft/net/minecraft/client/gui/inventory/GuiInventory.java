@@ -49,20 +49,35 @@ public class GuiInventory extends InventoryEffectRenderer {
    }
 
    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+<<<<<<< HEAD
+=======
+	   
+>>>>>>> Decodage
       GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       this.mc.getTextureManager().bindTexture(INVENTORY_BACKGROUND);
       int i = this.guiLeft;
       int j = this.guiTop;
       this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+<<<<<<< HEAD
       drawEntityOnScreen(i + 51, j + 75, 30, (float)(i + 51) - this.oldMouseX, (float)(j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
    }
+=======
+      drawEntityOnScreen(i+51 , j + 75, 30, (float)(i + 51) - this.oldMouseX, (float)(j + 75 - 50) - this.oldMouseY, this.mc.thePlayer);
+  //Draw the character on the inventory
+   }
+   
+>>>>>>> Decodage
 
    public static void drawEntityOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
       GlStateManager.enableColorMaterial();
       GlStateManager.pushMatrix();
       GlStateManager.translate((float)posX, (float)posY, 50.0F);
       GlStateManager.scale((float)(-scale), (float)scale, (float)scale);
+<<<<<<< HEAD
       GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+=======
+      GlStateManager.rotate(180F, 0.0F, 0.0F, 1.0F);
+>>>>>>> Decodage
       float f = ent.renderYawOffset;
       float f1 = ent.rotationYaw;
       float f2 = ent.rotationPitch;
