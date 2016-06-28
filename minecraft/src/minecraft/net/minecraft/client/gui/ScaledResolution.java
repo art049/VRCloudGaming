@@ -11,21 +11,12 @@ public class ScaledResolution {
    private int scaleFactor;
 
    public ScaledResolution(Minecraft minecraftClient) {
-<<<<<<< HEAD
 	  this.scaledWidth = minecraftClient.displayWidth;
       this.scaledHeight = minecraftClient.displayHeight;
       this.scaleFactor = 1;
       if (minecraftClient.gameSettings.anaglyph){
     	  this.scaledWidth/=2;
       }
-      
-      
-      
-=======
-      this.scaledWidth = minecraftClient.displayWidth;
-      this.scaledHeight = minecraftClient.displayHeight;
-      this.scaleFactor = 1;
->>>>>>> Decodage
       boolean flag = minecraftClient.isUnicode();
       int i = minecraftClient.gameSettings.guiScale;
       if(i == 0) {

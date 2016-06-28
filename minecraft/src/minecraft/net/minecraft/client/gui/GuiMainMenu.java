@@ -6,11 +6,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-<<<<<<< HEAD
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-=======
->>>>>>> Decodage
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -366,17 +363,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
    private void renderSkybox(int mouseX, int mouseY, float partialTicks) {
       this.mc.getFramebuffer().unbindFramebuffer();
-<<<<<<< HEAD
       // BEGIN VRCG
       IntBuffer portValues = ByteBuffer.allocateDirect(64).asIntBuffer();
       GlStateManager.glGetInteger(2978, portValues);
       for (int i = 0; i < 4; ++i)
     	  System.out.println(portValues.get(i));
       GlStateManager.viewport(0, 0, 256, 256);
-      
-=======
-      GlStateManager.viewport(0, 0, 256, 256);
->>>>>>> Decodage
       this.drawPanorama(mouseX, mouseY, partialTicks);
       this.rotateAndBlurSkybox(partialTicks);
       this.rotateAndBlurSkybox(partialTicks);
@@ -386,15 +378,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
       this.rotateAndBlurSkybox(partialTicks);
       this.rotateAndBlurSkybox(partialTicks);
       this.mc.getFramebuffer().bindFramebuffer(true);
-<<<<<<< HEAD
       // BEGIN VRCG
       
       GlStateManager.viewport(portValues.get(0), portValues.get(1), portValues.get(2), portValues.get(3));
       
       // END VRCG
-=======
-      GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
->>>>>>> Decodage
       float f = this.width > this.height?120.0F / (float)this.width:120.0F / (float)this.height;
       float f1 = (float)this.height * f / 256.0F;
       float f2 = (float)this.width * f / 256.0F;
@@ -412,11 +400,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
       GlStateManager.disableAlpha();
-<<<<<<< HEAD
       //this.renderSkybox(mouseX, mouseY, partialTicks);
-=======
-      this.renderSkybox(mouseX, mouseY, partialTicks);
->>>>>>> Decodage
       GlStateManager.enableAlpha();
       Tessellator tessellator = Tessellator.getInstance();
       VertexBuffer vertexbuffer = tessellator.getBuffer();

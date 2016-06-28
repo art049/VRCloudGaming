@@ -530,7 +530,3 @@ public class ItemRenderer {
       }
    }
 }
-<<<<<<< HEAD
- 
-=======
->>>>>>> Decodage

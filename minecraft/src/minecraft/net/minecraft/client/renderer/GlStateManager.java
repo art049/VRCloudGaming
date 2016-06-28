@@ -33,12 +33,8 @@ public class GlStateManager {
    private static GlStateManager.TextureState[] textureState;
    private static int activeShadeModel;
    private static GlStateManager.BooleanState rescaleNormalState;
-<<<<<<< HEAD
-   //TODO
    public static GlStateManager.ColorMask colorMaskState;
-=======
-   private static GlStateManager.ColorMask colorMaskState;
->>>>>>> Decodage
+
    private static GlStateManager.Color colorState;
 
    public static void pushAttrib() {

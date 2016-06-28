@@ -186,14 +186,10 @@ public class RenderItem implements IResourceManagerReloadListener {
          if(flag && bakedquad.hasTintIndex()) {
             k = this.itemColors.getColorFromItemstack(stack, bakedquad.getTintIndex());
             if(EntityRenderer.anaglyphEnable) {
-<<<<<<< HEAD
             	// BEGIN VRCG
             	//k = TextureUtil.anaglyphColor(k);
             	;
             	// END VRCG
-=======
-               k = TextureUtil.anaglyphColor(k);
->>>>>>> Decodage
             }
 
             k = k | -16777216;
@@ -237,11 +233,7 @@ public class RenderItem implements IResourceManagerReloadListener {
       if(stack.getItem() != null) {
          this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
          this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-<<<<<<< HEAD
          GlStateManager.color(0.0F, 0.0F, 1.0F, 1.0F);
-=======
-         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
->>>>>>> Decodage
          GlStateManager.enableRescaleNormal();
          GlStateManager.alphaFunc(516, 0.1F);
          GlStateManager.enableBlend();
