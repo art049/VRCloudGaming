@@ -155,10 +155,19 @@ public class RenderGlobal implements IWorldEventListener, IResourceManagerReload
 
    public RenderGlobal(Minecraft mcIn) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 
 =======
 >>>>>>> Decodage
+=======
+	/*  try {;
+		//mcIn.ffmpegpipe.pushImage(ScreenShotHelper.createScreenshot(mcIn.displayWidth, mcIn.displayHeight, mcIn.getFramebuffer()));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}*/
+>>>>>>> SplitGui3
       this.mc = mcIn;
       this.renderManager = mcIn.getRenderManager();
       this.renderEngine = mcIn.getTextureManager();

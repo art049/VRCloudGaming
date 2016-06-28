@@ -183,7 +183,11 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import vrcgio.FFmpegPIPE;
+=======
+//import vrcgio.FFmpegPIPE;
+>>>>>>> SplitGui3
 import vrcgio.UdpReceiver;
 
 =======
@@ -311,11 +315,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo {
 	private String debugProfilerName = "root";
 
 	// BEGIN VRCG
-	public FFmpegPIPE ffmpegpipe;
+	//public FFmpegPIPE ffmpegpipe;
 	public UdpReceiver receiver;
 
 	public Minecraft(GameConfiguration gameConfig) {
-		ffmpegpipe = new FFmpegPIPE();
+		//ffmpegpipe = new FFmpegPIPE();
 		receiver = new UdpReceiver("r0");
 		receiver.start();
 		// END VRCG

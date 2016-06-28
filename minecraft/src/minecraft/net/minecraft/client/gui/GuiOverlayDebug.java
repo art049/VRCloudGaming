@@ -28,6 +28,7 @@ import org.lwjgl.opengl.Display;
 public class GuiOverlayDebug extends Gui {
    private final Minecraft mc;
    private final FontRenderer fontRenderer;
+   
 
    public GuiOverlayDebug(Minecraft mc) {
       this.mc = mc;
@@ -136,11 +137,15 @@ public class GuiOverlayDebug extends Gui {
          if(this.mc.entityRenderer != null && this.mc.entityRenderer.isShaderActive()) {
             list.add("Shader: " + this.mc.entityRenderer.getShaderGroup().getShaderGroupName());
          }
+         
 
          if(this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
             BlockPos blockpos1 = this.mc.objectMouseOver.getBlockPos();
             list.add(String.format("Looking at: %d %d %d", new Object[]{Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())}));
+            
          }
+         list.add("Distance :"+this.mc.entityRenderer.getDistancetoB()+" MouseOver ? :"+(this.mc.objectMouseOver.typeOfHit.name()));
+        
 
          return list;
       }

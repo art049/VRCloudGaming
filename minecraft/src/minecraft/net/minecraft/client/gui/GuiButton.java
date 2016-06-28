@@ -84,11 +84,17 @@ public class GuiButton extends Gui {
 
    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	   if (mc.gameSettings.anaglyph){
 		      return this.enabled && this.visible && mouseX >= this.xPosition/2 && mouseY >= this.yPosition && mouseX < this.xPosition/2 + this.width/2 && mouseY < this.yPosition + this.height;
 	   }
 =======
 >>>>>>> Decodage
+=======
+	   //if (mc.gameSettings.anaglyph){
+		 //     return this.enabled && this.visible && mouseX >= this.xPosition/2 && mouseY >= this.yPosition && mouseX < this.xPosition/2 + this.width/2 && mouseY < this.yPosition + this.height;
+	   //}
+>>>>>>> SplitGui3
       return this.enabled && this.visible && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
    }
 
