@@ -428,7 +428,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			if (iblockstate.getMaterial() == Material.WATER) {
 				f = f * 60.0F / 70.0F;
 			}
-
+		if (this.mc.gameSettings.anaglyph){
+			f = 70.0F;
+		}
+			
+			
 			return f;
 		}
 	}
@@ -914,7 +918,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			int j1 = scaledresolution.getScaledHeight();
 			// BEGIN VRCG
 			int k1c = Mouse.getX() * i1 / this.mc.displayWidth;
-			if (mc.gameSettings.anaglyph){
+			if (mc.gameSettings.anaglyph) {
 				k1c *= 2;
 			}
 			final int k1 = k1c;
@@ -951,16 +955,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.mc.mcProfiler.endStartSection("gui");
 				if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
 					GlStateManager.alphaFunc(516, 0.1F);
-					
-					
+
 					// BEGIN VRCG
-					if(mc.gameSettings.anaglyph){
-						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
-					
-						this.mc.ingameGUI.renderGameOverlay(partialTicks);	
-						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
-						this.mc.ingameGUI.renderGameOverlay(partialTicks);					}
-					else
+					if (mc.gameSettings.anaglyph) {
+						GL11.glViewport(0, 0, mc.displayWidth / 2, mc.displayHeight);
+
+						this.mc.ingameGUI.renderGameOverlay(partialTicks);
+						GL11.glViewport(mc.displayWidth / 2, 0, mc.displayWidth / 2, mc.displayHeight);
+						this.mc.ingameGUI.renderGameOverlay(partialTicks);
+					} else
 						this.mc.ingameGUI.renderGameOverlay(partialTicks);
 				}
 
@@ -980,15 +983,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 				try {
 					// BEGIN VRCG
-					if(mc.gameSettings.anaglyph){
-						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
-					
+					if (mc.gameSettings.anaglyph) {
+						GL11.glViewport(0, 0, mc.displayWidth / 2, mc.displayHeight);
+
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
-						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
+						GL11.glViewport(mc.displayWidth / 2, 0, mc.displayWidth / 2, mc.displayHeight);
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
 
-					}
-					else 
+					} else
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
 
 				} catch (Throwable throwable) {
@@ -1118,6 +1120,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		RenderGlobal renderglobal = this.mc.renderGlobal;
 		ParticleManager particlemanager = this.mc.effectRenderer;
 
+		
 		boolean flag = this.isDrawBlockOutline();
 		GlStateManager.enableCull();
 		this.mc.mcProfiler.endStartSection("clear");
@@ -1128,8 +1131,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		else
 			GlStateManager.viewport((1 - pass) * this.mc.displayWidth / 2, 0, this.mc.displayWidth / 2,
 					this.mc.displayHeight);
+		
+		
 		// END VRCG
-
+		
 		this.updateFogColor(partialTicks);
 		GlStateManager.clear(16640);
 		this.mc.mcProfiler.endStartSection("camera");

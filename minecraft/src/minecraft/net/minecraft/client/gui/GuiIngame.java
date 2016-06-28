@@ -144,7 +144,7 @@ public class GuiIngame extends Gui {
          }
       }
 
-      if(this.mc.playerController.isSpectator()) {
+      if(this.mc.playerController.isSpectator()) {;
          this.spectatorGui.renderTooltip(scaledresolution, partialTicks);
       } else {
          this.renderHotbar(scaledresolution, partialTicks);
@@ -155,7 +155,7 @@ public class GuiIngame extends Gui {
       
       this.mc.getTextureManager().bindTexture(ICONS);
       GlStateManager.enableBlend();
-      this.renderAttackIndicator(partialTicks, scaledresolution);
+     // this.renderAttackIndicator(partialTicks, scaledresolution);
       GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
       
       this.mc.mcProfiler.startSection("bossHealth");
@@ -309,7 +309,7 @@ public class GuiIngame extends Gui {
       String s = this.mc.getVersionType();
    }
 
-   private void renderAttackIndicator(float p_184045_1_, ScaledResolution p_184045_2_) {
+   public void renderAttackIndicator(float p_184045_1_, ScaledResolution p_184045_2_) {
       GameSettings gamesettings = this.mc.gameSettings;
       if(gamesettings.thirdPersonView == 0) {
          if(this.mc.playerController.isSpectator() && this.mc.pointedEntity == null) {

@@ -383,7 +383,17 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
    }
 
    public void handleMouseInput() throws IOException {
-      int i = Mouse.getEventX() * this.width / this.mc.displayWidth;
+      
+	  int i = Mouse.getEventX() * this.width / this.mc.displayWidth;
+      if (this.mc.gameSettings.anaglyph ){
+    	  if(Mouse.getX()>= this.mc.displayWidth/2){
+    		  Mouse.setCursorPosition(this.mc.displayWidth/2, this.mc.displayHeight-Mouse.getEventY());
+    	  }
+    	  
+    	  
+    	  
+    	  i*=2;
+      }
       int j = this.height - Mouse.getEventY() * this.height / this.mc.displayHeight - 1;
       int k = Mouse.getEventButton();
       if(Mouse.getEventButtonState()) {
