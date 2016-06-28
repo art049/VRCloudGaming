@@ -365,9 +365,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
       this.mc.getFramebuffer().unbindFramebuffer();
       // BEGIN VRCG
       IntBuffer portValues = ByteBuffer.allocateDirect(64).asIntBuffer();
-      GlStateManager.glGetInteger(2978, portValues);
-      for (int i = 0; i < 4; ++i)
-    	  System.out.println(portValues.get(i));
+     /* GlStateManager.glGetInteger(2978, portValues);
+     
       GlStateManager.viewport(0, 0, 256, 256);
       this.drawPanorama(mouseX, mouseY, partialTicks);
       this.rotateAndBlurSkybox(partialTicks);
@@ -382,7 +381,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
       
       GlStateManager.viewport(portValues.get(0), portValues.get(1), portValues.get(2), portValues.get(3));
       
-      // END VRCG
+      // END VRCG*/
       float f = this.width > this.height?120.0F / (float)this.width:120.0F / (float)this.height;
       float f1 = (float)this.height * f / 256.0F;
       float f2 = (float)this.width * f / 256.0F;

@@ -75,6 +75,11 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class EntityRenderer implements IResourceManagerReloadListener {
+	private float oldPitch = 0;
+	private float oldYaw = 0;
+	private float newPitch = 0;
+	private float newYaw = 0;
+	private static float distanceToB;
 	private static final Logger LOGGER = LogManager.getLogger();
 	private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
 	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
@@ -308,6 +313,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.mc.mcProfiler.startSection("pick");
 				this.mc.pointedEntity = null;
 				double d0 = (double) this.mc.playerController.getBlockReachDistance();
+
 				this.mc.objectMouseOver = entity.rayTrace(d0, partialTicks);
 				double d1 = d0;
 				Vec3d vec3d = entity.getPositionEyes(partialTicks);
@@ -428,7 +434,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			if (iblockstate.getMaterial() == Material.WATER) {
 				f = f * 60.0F / 70.0F;
 			}
-
+		if (this.mc.gameSettings.anaglyph){
+			f = 70.0F;
+		}
+			
+			
 			return f;
 		}
 	}
@@ -570,6 +580,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 	private void setupCameraTransform(float partialTicks, int pass) {
 		this.farPlaneDistance = (float) (this.mc.gameSettings.renderDistanceChunks * 16);
+
 		GlStateManager.matrixMode(5889);
 		GlStateManager.loadIdentity();
 		float f = 0.07F;
@@ -580,6 +591,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		if (this.cameraZoom != 1.0D) {
 			GlStateManager.translate((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
 			GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
+
 		}
 
 		// BEGIN VRCG
@@ -868,11 +880,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			float f2 = 0;
 			float f3 = 0;
 			int i = 1;
+			this.mc.mouseHelper.mouseXYChange();
+			float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
+			float f1 = f * f * f * 8.0F;
 			// Begin VRCG
-			if (!anaglyph) {
-				this.mc.mouseHelper.mouseXYChange();
-				float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
-				float f1 = f * f * f * 8.0F;
+			if (!mc.gameSettings.anaglyph) {
+
 				f2 = (float) this.mc.mouseHelper.deltaX * f1;
 				f3 = (float) this.mc.mouseHelper.deltaY * f1;
 				i = 1;
@@ -880,12 +893,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					i = -1;
 				}
 			} else {
-				// modify f2 and f3 for angles.
+				// modify f2 and f3 they are variations of angles.
+				this.oldPitch = this.newPitch;
+				this.oldYaw = this.newYaw;
 
-				f2 = -this.mc.receiver.getPitch();
-				f3 = -this.mc.receiver.getYaw();
+				this.newPitch = this.mc.receiver.getPitch();
+				this.newYaw = this.mc.receiver.getYaw();
+				f2 = this.newPitch - this.oldPitch;
+				f3 = this.newYaw - this.oldYaw;
 				f2 /= 0.15F;
 				f3 /= 0.15F;
+				f3 += (float) this.mc.mouseHelper.deltaY * f1;
+				f2 += (float) this.mc.mouseHelper.deltaX * f1;
 				i = 1;
 			}
 
@@ -896,11 +915,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.smoothCamPartialTicks = partialTicks;
 				f2 = this.smoothCamFilterX * f4;
 				f3 = this.smoothCamFilterY * f4;
-				this.mc.thePlayer.setAngles(f2, f3 * (float) i, this.mc.gameSettings.anaglyph);
+				this.mc.thePlayer.setAngles(f2, f3 * (float) i);
 			} else {
 				this.smoothCamYaw = 0.0F;
 				this.smoothCamPitch = 0.0F;
-				this.mc.thePlayer.setAngles(f2, f3 * (float) i, this.mc.gameSettings.anaglyph);
+				this.mc.thePlayer.setAngles(f2, f3 * (float) i);
 			}
 		}
 
@@ -910,7 +929,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 			int i1 = scaledresolution.getScaledWidth();
 			int j1 = scaledresolution.getScaledHeight();
-			final int k1 = Mouse.getX() * i1 / this.mc.displayWidth*2;
+			// BEGIN VRCG
+			int k1c = Mouse.getX() * i1 / this.mc.displayWidth;
+			if (mc.gameSettings.anaglyph) {
+				k1c *= 2;
+			}
+			final int k1 = k1c;
+
 			final int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
 			int i2 = this.mc.gameSettings.limitFramerate;
 			if (this.mc.theWorld != null) {
@@ -944,17 +969,23 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.mc.mcProfiler.endStartSection("gui");
 				if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
 					GlStateManager.alphaFunc(516, 0.1F);
-					
-					
+
 					// BEGIN VRCG
-					if(mc.gameSettings.anaglyph){
-						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
-					
-						this.mc.ingameGUI.renderGameOverlay(partialTicks);	
-						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
-						this.mc.ingameGUI.renderGameOverlay(partialTicks);					}
-					else
-						this.mc.ingameGUI.renderGameOverlay(partialTicks);
+					if (mc.gameSettings.anaglyph) {
+						try {
+							distanceToB = (float) this.mc.thePlayer
+									.getDistanceSq(this.mc.objectMouseOver.getBlockPos());
+						} catch (NullPointerException e) {
+							distanceToB = Float.MAX_VALUE;
+						}
+
+						GL11.glViewport(0, 0, mc.displayWidth / 2, mc.displayHeight);
+
+						this.mc.ingameGUI.renderGameOverlay(partialTicks, 1, distanceToB);
+						GL11.glViewport(mc.displayWidth / 2, 0, mc.displayWidth / 2, mc.displayHeight);
+						this.mc.ingameGUI.renderGameOverlay(partialTicks, 0, distanceToB);
+					} else
+						this.mc.ingameGUI.renderGameOverlay(partialTicks, 2, distanceToB);
 				}
 
 				this.mc.mcProfiler.endSection();
@@ -973,15 +1004,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 				try {
 					// BEGIN VRCG
-					if(mc.gameSettings.anaglyph){
-						GL11.glViewport(0, 0, mc.displayWidth/2, mc.displayHeight);
-					
+					if (mc.gameSettings.anaglyph) {
+						GL11.glViewport(0, 0, mc.displayWidth / 2, mc.displayHeight);
+
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
-						GL11.glViewport(mc.displayWidth/2, 0, mc.displayWidth/2, mc.displayHeight);
+						GL11.glViewport(mc.displayWidth / 2, 0, mc.displayWidth / 2, mc.displayHeight);
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
 
-					}
-					else 
+					} else
 						this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
 
 				} catch (Throwable throwable) {
@@ -1111,6 +1141,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		RenderGlobal renderglobal = this.mc.renderGlobal;
 		ParticleManager particlemanager = this.mc.effectRenderer;
 
+		
 		boolean flag = this.isDrawBlockOutline();
 		GlStateManager.enableCull();
 		this.mc.mcProfiler.endStartSection("clear");
@@ -1121,8 +1152,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		else
 			GlStateManager.viewport((1 - pass) * this.mc.displayWidth / 2, 0, this.mc.displayWidth / 2,
 					this.mc.displayHeight);
+		
+		
 		// END VRCG
-
+		
 		this.updateFogColor(partialTicks);
 		GlStateManager.clear(16640);
 		this.mc.mcProfiler.endStartSection("camera");
@@ -1181,7 +1214,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		this.mc.mcProfiler.endStartSection("prepareterrain");
 		this.setupFog(0, partialTicks);
 		this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		RenderHelper.disableStandardItemLighting();
+		// RenderHelper.disableStandardItemLighting();
 		this.mc.mcProfiler.endStartSection("terrain_setup");
 		renderglobal.setupTerrain(entity, (double) partialTicks, icamera, this.frameCount++,
 				this.mc.thePlayer.isSpectator());
@@ -1783,5 +1816,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 	public MapItemRenderer getMapItemRenderer() {
 		return this.theMapItemRenderer;
 	}
-
+	public float getDistancetoB()
+	{
+		return this.distanceToB;
+	}
 }
