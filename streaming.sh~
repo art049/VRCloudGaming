@@ -1,0 +1,10 @@
+## UDP
+ffmpeg -s 1280x720 -r 30 -f x11grab  -i :0.0 -codec:v libx264 -g 5  -preset ultrafast -tune zerolatency -b:v 3000k -f mpegts   udp://192.168.42.129:4242
+
+ffplay -probesize 32 -sync ext udp://localhost:4242?listen
+ffmpeg -s 1280x720 -r 30 -f x11grab  -i :0.0 -codec:v libx264 -g 5  -preset ultrafast -tune zerolatency -b:v 4000k -f mpegts   udp://192.168.42.129:5454
+
+#todo x64opts
+#todo vpr baseline
+
+##

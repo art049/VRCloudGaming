@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/res/merged/debug/values-v19/values-v19.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 60,
+                    "endOffset": 111
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-v19/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 196,
+                        "endColumn": 60,
+                        "endOffset": 252
+                    }
+                }
+            }
+        ]
+    }
+]

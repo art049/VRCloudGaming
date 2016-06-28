@@ -1,0 +1,61 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 6/19/16 7:18 AM
+Description: Exception ticking world
+
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.remove(HashMap.java:1451)
+	at net.minecraft.world.gen.ChunkProviderServer.unloadQueuedChunks(ChunkProviderServer.java:178)
+	at net.minecraft.world.WorldServer.tick(WorldServer.java:169)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:558)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:496)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:138)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:404)
+	at java.lang.Thread.run(Thread.java:745)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at java.util.HashMap$HashIterator.remove(HashMap.java:1451)
+	at net.minecraft.world.gen.ChunkProviderServer.unloadQueuedChunks(ChunkProviderServer.java:178)
+	at net.minecraft.world.WorldServer.tick(WorldServer.java:169)
+
+-- Affected level --
+Details:
+	Level name: mcpworld
+	All players: 0 total; []
+	Chunk stats: ServerChunkCache: 573 Drop: 303
+	Level seed: -1587754402
+	Level generator: ID 02 - largeBiomes, ver 0. Features enabled: true
+	Level generator options: 
+	Level spawn location: World: (584,64,166), Chunk: (at 8,4,6 in 36,10; contains blocks 576,0,160 to 591,255,175), Region: (1,0; contains chunks 32,0 to 63,31, blocks 512,0,0 to 1023,255,511)
+	Level time: 4616 game time, 3996 day time
+	Level dimension: 0
+	Level storage version: 0x04ABD - Anvil
+	Level weather: Rain time: 150310 (now: false), thunder time: 12933 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:558)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:496)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:138)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:404)
+	at java.lang.Thread.run(Thread.java:745)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.9.4
+	Operating System: Linux (amd64) version 4.5.3-1-ARCH
+	Java Version: 1.8.0_92, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 894324856 bytes (852 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 98
+	Profiler Position: N/A (disabled)
+	Player Count: 0 / 8; []
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Very likely; Jar signature invalidated

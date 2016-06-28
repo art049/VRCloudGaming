@@ -1,0 +1,68 @@
+package vrcgio;
+
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.lang.ProcessBuilder.Redirect;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.IOUtils;
+
+import net.minecraft.client.shader.Framebuffer;
+
+
+
+public class FFmpegPIPE {
+	private BufferedImage current;
+	private OutputStream pipestream;
+	private InputStream inputStream;
+	private Process process;
+	private int i=0;
+	public FFmpegPIPE(){
+		//ProcessBuilder builder = new ProcessBuilder("ffmpeg", "-f", "image2pipe", "-r", "1", "-vcodec", "png", "-i", "-", "-vcodec", "libx264", "out.mp4");
+		ProcessBuilder builder = new ProcessBuilder("ffmpeg", "-i", "-", "-c:v", "libx264", "-r", "30", "-pix_fmt", "yuv420p", "outthe2stg.mp4");
+		builder.redirectOutput(Redirect.INHERIT);
+		builder.redirectError(Redirect.INHERIT);
+		process = null;
+		try {
+			process = builder.start();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			process = null;
+			e.printStackTrace();
+		}
+		pipestream = process.getOutputStream();
+		inputStream = process.getInputStream();
+
+	}
+	public void pushImage(BufferedImage p){	
+		this.current = p;
+		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+		try{
+			ImageIO.write(p, "png", pipestream);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		//System.out.println(i);
+		if(i++> 500){
+			process.destroy();
+		}
+		//saveScreenshot(new File("./"), "./", "a"+i++, int width, int height, Framebuffer buffer)
+		//pipestream.read(tmp.toByteArray());
+	}
+	
+	public void run() throws IOException{
+		
+	}
+}

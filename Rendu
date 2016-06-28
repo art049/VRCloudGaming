@@ -1,0 +1,9 @@
+Explication simple :
+
+net.minecraft.client.renderer.EntityRenderer.renderWorldPass(EntityRenderer.java:992) (pass 0 : oeil gauche, pass 1 oeil droit, pass 2 : non 3d)
+net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:977)
+net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:841)
+net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:898)
+net.minecraft.client.Minecraft.run(Minecraft.java:354)
+net.minecraft.client.main.Main.main(Main.java:100)
+Start.main(Start.java:11)

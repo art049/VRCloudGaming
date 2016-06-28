@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/res/merged/debug/layout-land/ui_layer_with_portrait_support.xml",
+        "source": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/layout-land/ui_layer_with_portrait_support.xml"
+    },
+    {
+        "merged": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/res/merged/debug/layout-land/back_button.xml",
+        "source": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/layout-land/back_button.xml"
+    }
+]

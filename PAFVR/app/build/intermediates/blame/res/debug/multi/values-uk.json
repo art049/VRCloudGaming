@@ -1,0 +1,691 @@
+[
+    {
+        "outputFile": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/res/merged/debug/values-uk/values-uk.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 109,
+                    "endOffset": 210
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 109,
+                        "endOffset": 160
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 215,
+                    "endColumn": 107,
+                    "endOffset": 318
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 165,
+                        "endColumn": 107,
+                        "endOffset": 268
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 323,
+                    "endColumn": 122,
+                    "endOffset": 441
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 273,
+                        "endColumn": 122,
+                        "endOffset": 391
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 446,
+                    "endColumn": 101,
+                    "endOffset": 543
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 396,
+                        "endColumn": 101,
+                        "endOffset": 493
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 548,
+                    "endColumn": 105,
+                    "endOffset": 649
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 498,
+                        "endColumn": 105,
+                        "endOffset": 599
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 654,
+                    "endColumn": 85,
+                    "endOffset": 735
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 604,
+                        "endColumn": 85,
+                        "endOffset": 685
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 740,
+                    "endColumn": 107,
+                    "endOffset": 843
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 690,
+                        "endColumn": 107,
+                        "endOffset": 793
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 848,
+                    "endColumn": 117,
+                    "endOffset": 961
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 798,
+                        "endColumn": 117,
+                        "endOffset": 911
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 966,
+                    "endColumn": 78,
+                    "endOffset": 1040
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 916,
+                        "endColumn": 78,
+                        "endOffset": 990
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1045,
+                    "endColumn": 79,
+                    "endOffset": 1120
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 995,
+                        "endColumn": 79,
+                        "endOffset": 1070
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1125,
+                    "endColumn": 80,
+                    "endOffset": 1201
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1075,
+                        "endColumn": 80,
+                        "endOffset": 1151
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1206,
+                    "endColumn": 105,
+                    "endOffset": 1307
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1156,
+                        "endColumn": 105,
+                        "endOffset": 1257
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1312,
+                    "endColumn": 106,
+                    "endOffset": 1414
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1262,
+                        "endColumn": 106,
+                        "endOffset": 1364
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1419,
+                    "endColumn": 97,
+                    "endOffset": 1512
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1369,
+                        "endColumn": 97,
+                        "endOffset": 1462
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1517,
+                    "endColumn": 107,
+                    "endOffset": 1620
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1467,
+                        "endColumn": 107,
+                        "endOffset": 1570
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1625,
+                    "endColumn": 105,
+                    "endOffset": 1726
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1575,
+                        "endColumn": 105,
+                        "endOffset": 1676
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1731,
+                    "endColumn": 108,
+                    "endOffset": 1835
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1681,
+                        "endColumn": 108,
+                        "endOffset": 1785
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1840,
+                    "endColumn": 123,
+                    "endOffset": 1959
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1790,
+                        "endColumn": 123,
+                        "endOffset": 1909
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1964,
+                    "endColumn": 99,
+                    "endOffset": 2059
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1914,
+                        "endColumn": 99,
+                        "endOffset": 2009
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2064,
+                    "endColumn": 95,
+                    "endOffset": 2155
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 316,
+                        "endColumn": 95,
+                        "endOffset": 407
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2160,
+                    "endColumn": 81,
+                    "endOffset": 2237
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 412,
+                        "endColumn": 81,
+                        "endOffset": 489
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2242,
+                    "endColumn": 140,
+                    "endOffset": 2378
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 494,
+                        "endColumn": 140,
+                        "endOffset": 630
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2383,
+                    "endColumn": 128,
+                    "endOffset": 2507
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 635,
+                        "endColumn": 128,
+                        "endOffset": 759
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2512,
+                    "endColumn": 82,
+                    "endOffset": 2590
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 764,
+                        "endColumn": 82,
+                        "endOffset": 842
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2595,
+                    "endColumn": 102,
+                    "endOffset": 2693
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 847,
+                        "endColumn": 102,
+                        "endOffset": 945
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2698,
+                    "endColumn": 73,
+                    "endOffset": 2767
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 950,
+                        "endColumn": 73,
+                        "endOffset": 1019
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2772,
+                    "endColumn": 105,
+                    "endOffset": 2873
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1024,
+                        "endColumn": 105,
+                        "endOffset": 1125
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2878,
+                    "endColumn": 127,
+                    "endOffset": 3001
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1130,
+                        "endColumn": 127,
+                        "endOffset": 1253
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 3006,
+                    "endColumn": 157,
+                    "endOffset": 3159
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1258,
+                        "endColumn": 157,
+                        "endOffset": 1411
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 3164,
+                    "endColumn": 106,
+                    "endOffset": 3266
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1416,
+                        "endColumn": 106,
+                        "endOffset": 1518
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 3271,
+                    "endColumn": 83,
+                    "endOffset": 3350
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1523,
+                        "endColumn": 83,
+                        "endOffset": 1602
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 3355,
+                    "endColumn": 100,
+                    "endOffset": 3451
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/res/values-uk/values-uk.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 2014,
+                        "endColumn": 100,
+                        "endOffset": 2110
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 3456,
+                    "endColumn": 86,
+                    "endOffset": 3538
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1607,
+                        "endColumn": 86,
+                        "endOffset": 1689
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 3543,
+                    "endColumn": 92,
+                    "endOffset": 3631
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1694,
+                        "endColumn": 92,
+                        "endOffset": 1782
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 3636,
+                    "endColumn": 109,
+                    "endOffset": 3741
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1787,
+                        "endColumn": 109,
+                        "endOffset": 1892
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 3746,
+                    "endColumn": 159,
+                    "endOffset": 3901
+                },
+                "from": {
+                    "file": "/home/arthur/Programmation/PAF/VRCloudGaming/PAFVR/app/build/intermediates/exploded-aar/PAFVR/common/unspecified/res/values-uk/values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1897,
+                        "endColumn": 159,
+                        "endOffset": 2052
+                    }
+                }
+            }
+        ]
+    }
+]
