@@ -5,7 +5,6 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class UdpReceiver extends Thread {
-	private Thread t;
 	private String threadName = new String("receive");
 	private byte[] buf;
 	private DatagramSocket socket;
@@ -16,22 +15,24 @@ public class UdpReceiver extends Thread {
 	public UdpReceiver(String name) {
 		super(name);
 		buf = new byte[100];
+	}
+
+
+
+	public void run() {
 		try {
 			socket = new DatagramSocket(8345);
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-
-
-	public void run() {
 		while (true) {
+			
+			DatagramPacket packet = new DatagramPacket(buf, buf.length);
+			
 			try {
-				DatagramPacket packet = new DatagramPacket(buf, buf.length);
 				socket.receive(packet);
-				//System.out.println("Received "+packet.toString());
+				System.out.println("Received "+packet.toString());
 				String str = new String(buf, "utf-8");
 				String[] splitStr = str.split(" ");
 				String yawStr = splitStr[0];

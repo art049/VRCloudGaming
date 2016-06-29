@@ -115,14 +115,10 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
 
         super.onCreate(savedInstanceState);
 
-
         Intent tetherSettings = new Intent();
         tetherSettings.setClassName("com.android.settings", "com.android.settings.TetherSettings");
         startActivity(tetherSettings);
 
-
-        if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
-            return;
         setContentView(R.layout.vr_layout);
         GvrView gvrView = (GvrView) findViewById(R.id.gvr_view);
         gvrView.setRenderer(this);
@@ -279,9 +275,6 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         headTransform.getEulerAngles(angles, 0);
         gyrothread.setYawPitch(angles[0], angles[1]);
 
-        //Log.d(TAG, messageStr);
-        //new GyroTask().execute(messageStr);
-        //Log.d("tag", "lol");
     }
 
     @Override
@@ -400,48 +393,10 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
              * and pass it to the MediaPlayer
              */
 
-        /* Pour deux images
-        mSurfaceLeft = new SurfaceTexture(mTextureIDLeft);
-        mSurfaceLeft.setDefaultBufferSize(size.x, size.y);
-        mSurfaceLeft.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
-
-
-        Surface surfaceLeft = new Surface(mSurfaceLeft);
-        mMediaPlayerLeft = MediaPlayer.create(this, R.raw.cat);
-        mMediaPlayerLeft.setSurface(surfaceLeft);
-        surfaceLeft.release();
-
-        mSurfaceRight = new SurfaceTexture(mTextureIDRight);
-        mSurfaceRight.setDefaultBufferSize(size.x, size.y);
-        mSurfaceRight.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
-
-        Surface surfaceRight = new Surface(mSurfaceRight);
-        mMediaPlayerRight = MediaPlayer.create(this, R.raw.dog);
-        mMediaPlayerRight.setSurface(surfaceRight);
-        surfaceRight.release();
-
-        synchronized(this) {
-            updateSurfaceLeft = false;
-        }
-
-        synchronized(this) {
-            updateSurfaceRight = false;
-        }
-
-        mMediaPlayerRight.setLooping(true);
-        mMediaPlayerLeft.setLooping(true);
-        mMediaPlayerLeft.start();
-        mMediaPlayerRight.start();
-        */
-
-        /*Pour une seule image*/
         mSurfaceBoth = new SurfaceTexture(mTextureIDBoth);
         mSurfaceBoth.setOnFrameAvailableListener((SurfaceTexture.OnFrameAvailableListener) this);
         Surface surfaceBoth = new Surface(mSurfaceBoth);
         myUri = Uri.parse("udp://localhost:5454?Listen");
-        //String path = "raw/cat.mp4";
-
-        // Avec le MediaPlayer de Vitamio
         mMediaPlayerBoth = new MediaPlayer(this);
         try {
             mMediaPlayerBoth.setDataSource(this, myUri);
@@ -453,18 +408,6 @@ public class VRActivity extends GvrActivity implements GvrView.StereoRenderer, S
         mMediaPlayerBoth.setBufferSize(0);
         mMediaPlayerBoth.prepareAsync();
         mMediaPlayerBoth.setOnPreparedListener(this);
-
-
-        /* Avec ijk
-        mIjkMediaPlayerBoth = new IjkMediaPlayer();
-        try {
-            mIjkMediaPlayerBoth.setDataSource(this, myUri);
-            mIjkMediaPlayerBoth.setSurface(surfaceBoth);
-            mIjkMediaPlayerBoth.prepareAsync();
-            mIjkMediaPlayerBoth.setOnPreparedListener(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 
         synchronized (this) {
             updateSurfaceBoth = false;

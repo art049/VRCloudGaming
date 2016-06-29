@@ -901,7 +901,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				this.newYaw = this.mc.receiver.getYaw();
 				f2 = this.newPitch - this.oldPitch;
 				f3 = this.newYaw - this.oldYaw;
-				f2 /= 0.15F;
+				f2 /= -1*0.15F;
 				f3 /= 0.15F;
 				f3 += (float) this.mc.mouseHelper.deltaY * f1;
 				f2 += (float) this.mc.mouseHelper.deltaX * f1;

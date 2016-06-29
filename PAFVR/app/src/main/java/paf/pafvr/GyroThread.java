@@ -2,6 +2,7 @@ package paf.pafvr;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.net.DatagramPacket;
@@ -26,16 +27,16 @@ public class GyroThread extends Thread {
     }
     @Override
     public void run(){
-        final String server_ip = "192.168.42.141";
+        final String server_ip = "192.168.42.220";
         final int server_port = 8345;
         String messageStr;
         DatagramSocket s;
         try {
             InetAddress local;
             s = new DatagramSocket();
-            while(true) {
+            while (true) {
                 try {
-
+                    Log.d("lol", "packet");
                     local = InetAddress.getByName(server_ip);
                     messageStr = yaw + " " + pitch;
                     int msg_length = messageStr.length();
@@ -46,13 +47,14 @@ public class GyroThread extends Thread {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } catch (UnknownHostException e) {
+                    SystemClock.sleep(50);
+                }
+                catch(Exception e){
                     e.printStackTrace();
                 }
-                SystemClock.sleep(50);
-            }
 
-        } catch (SocketException e) {
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
 
